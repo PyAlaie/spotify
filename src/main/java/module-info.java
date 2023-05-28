@@ -1,10 +1,13 @@
 module com.ap.spotify {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
+    requires com.google.gson;
 
 
     opens com.ap.spotify to javafx.fxml;
     exports com.ap.spotify;
     exports com.ap.spotify.client;
     opens com.ap.spotify.client to javafx.fxml;
+    opens com.ap.spotify.shared.models to com.google.gson;
 }
