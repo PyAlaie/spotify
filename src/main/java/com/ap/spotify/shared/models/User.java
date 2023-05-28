@@ -1,6 +1,8 @@
 package com.ap.spotify.shared.models;
 
 
+import com.ap.spotify.shared.BCrypt;
+
 public class User {
     private int id;
     private String username;
@@ -46,5 +48,9 @@ public class User {
 
     public void setProfilePicPath(String profilePicPath) {
         this.profilePicPath = profilePicPath;
+    }
+
+    public String hashPassword(){
+        return BCrypt.hashpw(this.password, BCrypt.gensalt());
     }
 }

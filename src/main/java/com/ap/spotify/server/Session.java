@@ -106,15 +106,7 @@ public class Session implements Runnable{
         Response response = new Response();
 
         try {
-            if(crudUser.login(user)){
-                isLoggedin = true;
-                response.setStatusCode(200);
-                response.setMessage("Logged in successfully!");
-            }
-            else {
-                response.setStatusCode(404);
-                response.setMessage("Username and password does not match!");
-            }
+            response = crudUser.login(user.getUsername(), user.getPassword());
         }
         catch (SQLException e){
             response.setMessage("Error while logging in!");

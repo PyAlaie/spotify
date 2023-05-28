@@ -30,13 +30,11 @@ public class Test {
         ObjectInputStream objIn = new ObjectInputStream(socket.getInputStream());
 
         User user = new User();
-        user.setUsername("a");
-        user.setPassword("a");
-        user.setEmail("a");
-        user.setProfilePicPath("a");
+        user.setUsername("arshia");
+        user.setPassword("1234");
 
         Gson gson = new Gson();
-        Request request = new Request("newAccount");
+        Request request = new Request("login");
 
         request.setJson(gson.toJson(user));
 
