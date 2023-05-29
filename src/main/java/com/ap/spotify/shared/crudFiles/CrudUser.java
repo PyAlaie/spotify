@@ -95,9 +95,6 @@ public class CrudUser {
         statement.setString(1, username);
 
         ResultSet resultSet = statement.executeQuery();
-        if(resultSet.next()){
-            return true;
-        }
-        return false;
+        return resultSet.next();
     }
 }

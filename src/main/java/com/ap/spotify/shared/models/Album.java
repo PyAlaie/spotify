@@ -7,6 +7,6 @@ public class Album {
     private String title;
     private Date releaseDate;
     private int popularity;
-    private Artist artist;
-    private Genre genre;
+    private int artist;
+    private int genre;
 }

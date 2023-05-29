@@ -10,7 +10,7 @@ public class Music {
     private int popularity;
     private String coverPicPath;
     private String lyricsFilePath;
-    private Artist artist;
-    private Album album;
-    private Genre genre;
+    private int artist;
+    private int album;
+    private int genre;
 }

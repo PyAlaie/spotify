@@ -1,6 +1,7 @@
 package com.ap.spotify;
 
 import com.ap.spotify.shared.*;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,9 +30,11 @@ public class Test {
         ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream objIn = new ObjectInputStream(socket.getInputStream());
 
-        User user = new User();
-        user.setUsername("arshia");
+        Artist user = new Artist();
+        user.setUsername("mamad");
         user.setPassword("1234");
+//        user.setGenre();
+
 
         Gson gson = new Gson();
         Request request = new Request("login");
