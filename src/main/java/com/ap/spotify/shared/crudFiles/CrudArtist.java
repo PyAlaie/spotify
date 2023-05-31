@@ -4,7 +4,6 @@ import com.ap.spotify.server.Database;
 import com.ap.spotify.shared.BCrypt;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Artist;
-import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 
 import java.sql.PreparedStatement;
@@ -76,8 +75,24 @@ public class CrudArtist {
         return response;
     }
 
-    public User selectUserByUsername(String username) throws SQLException {
-        // TODO: do da function
+    public Artist selectUserByUsername(String username) throws SQLException {
+        String query = "SELECT * FROM artists WHERE username=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, username);
+
+        ResultSet res = statement.executeQuery();
+
+        if(res.next()){
+            Artist artist = new Artist();
+            artist.setUsername(res.getString("username"));
+            artist.setPassword(res.getString("password"));
+            artist.setId(res.getInt("id"));
+            artist.setBiography(res.getString("biography"));
+            artist.setProfilePicPath(res.getString("profile_pic_path"));
+            artist.setGenre(res.getInt("genre"));
+            return artist;
+        }
         return null;
     }
 
@@ -90,5 +105,26 @@ public class CrudArtist {
         ResultSet resultSet = statement.executeQuery();
 
         return resultSet.next();
+    }
+
+    public Artist getArtistById(int id) throws SQLException {
+        String query = "SELECT * FROM artists WHERE id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, id);
+
+        ResultSet res = statement.executeQuery();
+
+        if(res.next()){
+            Artist artist = new Artist();
+            artist.setUsername(res.getString("username"));
+            artist.setPassword(res.getString("password"));
+            artist.setId(res.getInt("id"));
+            artist.setBiography(res.getString("biography"));
+            artist.setProfilePicPath(res.getString("profile_pic_path"));
+            artist.setGenre(res.getInt("genre"));
+            return artist;
+        }
+        return null;
     }
 }

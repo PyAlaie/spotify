@@ -3,14 +3,15 @@ package com.ap.spotify.server;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.crudFiles.CrudArtist;
+import com.ap.spotify.shared.crudFiles.CrudGenre;
+import com.ap.spotify.shared.crudFiles.CrudMusic;
 import com.ap.spotify.shared.crudFiles.CrudUser;
-import com.ap.spotify.shared.models.Account;
-import com.ap.spotify.shared.models.Artist;
-import com.ap.spotify.shared.models.User;
+import com.ap.spotify.shared.models.*;
 import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.List;
 
 public class Session implements Runnable{
     private Socket socket;
@@ -20,7 +21,7 @@ public class Session implements Runnable{
 
     // the boolean below is a simple way to check if the user is logged in or not
     // in the future it will be replaced with token auth...
-    boolean isLoggedin = false;
+    boolean isLoggedIn = false;
     private Account loggedInAccount;
     private String role;
 
@@ -63,7 +64,7 @@ public class Session implements Runnable{
     public void handleRequest(Request request) throws IOException {
         String command = request.getCommand();
 
-        if(!isLoggedin){
+        if(!isLoggedIn){
             if(command.equals("login")){
                 Response response = login(request);
                 objOut.writeObject(response);
@@ -162,7 +163,7 @@ public class Session implements Runnable{
             if(crudArtist.doesArtistExist(account.getUsername())){
                 response = crudArtist.login(account.getUsername(), account.getPassword());
                 if(response.getStatusCode() == 200){
-                    isLoggedin = true;
+                    isLoggedIn = true;
                     loggedInAccount = gson.fromJson(response.getJson(), Artist.class);
                     role = "artist";
                 }
@@ -170,7 +171,7 @@ public class Session implements Runnable{
             else {
                 response = crudUser.login(account.getUsername(), account.getPassword());
                 if(response.getStatusCode() == 200){
-                    isLoggedin = true;
+                    isLoggedIn = true;
                     loggedInAccount = gson.fromJson(response.getJson(), User.class);
                     role = "user";
                 }
@@ -183,13 +184,91 @@ public class Session implements Runnable{
 
         return response;
     }
+    public Response createNewGenre(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Genre genre = gson.fromJson(json, Genre.class);
+        CrudGenre crudGenre = new CrudGenre(database);
+
+        try {
+            if(!crudGenre.doesGenreExist(genre.getTitle())){
+                crudGenre.newGenre(genre);
+                response.setMessage("Genre created!");
+                response.setStatusCode(200);
+            }
+            else {
+                response.setMessage("Genre already exists!");
+                response.setStatusCode(400);
+            }
+        } catch (SQLException e) {
+            response.setMessage("Error in creating the genre!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+
+    public Response getNewMusics(){
+        CrudMusic crudMusic = new CrudMusic(database);
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        try {
+            List<Music> musicList = crudMusic.getNewMusics();
+            response.setJson(gson.toJson(musicList));
+            response.setStatusCode(200);
+            response.setMessage("New musics!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the musics!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
 
     public Response handleUserRequest(Request request){
-        // TODO: write this function
-        return null;
+        String command = request.getCommand();
+        Response response = new Response();
+
+        if (command.equals("getNewMusics")) {
+            response = getNewMusics();
+        }
+        else if(command.equals("newComment")){
+
+        }
+        else if (command.equals("playMusic")) {
+
+        }
+        else if (command.equals("newPlaylist")) {
+
+        }
+        else if (command.equals("viewArtist")) {
+
+        }
+        else if (command.equals("showTimeline")) {
+
+        }
+        else if (command.equals("search")) {
+
+        }
+
+        return response;
     }
     public Response handleArtistRequest(Request request){
-        // TODO: write this function
-        return null;
+        String command = request.getCommand();
+        Response response = new Response();
+
+        if(command.equals("newGenre")){
+            response = createNewGenre(request);
+        }
+        else if (command.equals("newMusic")) {
+
+        }
+        else if (command.equals("newMusic")) {
+
+        }
+
+        return response;
     }
 }

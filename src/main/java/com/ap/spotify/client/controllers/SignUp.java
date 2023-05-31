@@ -1,4 +1,4 @@
 package com.ap.spotify.client.controllers;
 
-public class LoginRegister {
+public class SignUp {
 }

@@ -1,7 +1,5 @@
 package com.ap.spotify.shared.models;
 
-import com.ap.spotify.shared.BCrypt;
-
 public class Artist extends Account{
     private int id;
     private String biography;

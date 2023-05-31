@@ -2,13 +2,16 @@ package com.ap.spotify;
 
 import com.ap.spotify.shared.*;
 import com.ap.spotify.shared.models.Artist;
+import com.ap.spotify.shared.models.Genre;
+import com.ap.spotify.shared.models.Music;
 import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.Socket;
-import java.util.Map;
+import java.util.List;
 import java.util.Scanner;
 
 public class Test {
@@ -30,23 +33,23 @@ public class Test {
         ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream objIn = new ObjectInputStream(socket.getInputStream());
 
-        Artist user = new Artist();
-        user.setUsername("mamad");
-        user.setPassword("1234");
-//        user.setGenre();
+
 
 
         Gson gson = new Gson();
-        Request request = new Request("login");
+        Request request = new Request("getNewMusics");
 
-        request.setJson(gson.toJson(user));
 
         objOut.writeObject(request);
         objOut.flush();
 
         Response response = (Response) objIn.readObject();
 
-        System.out.println(response.getMessage());
+        Type listType = new TypeToken<List<Music>>(){}.getType();
+
+        List<Music> musics = gson.fromJson(response.getJson(), listType);
+
+        System.out.println(musics.get(0).getTitle());
 
 
     }
