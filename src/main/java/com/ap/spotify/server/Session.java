@@ -6,10 +6,12 @@ import com.ap.spotify.shared.crudFiles.*;
 import com.ap.spotify.shared.models.*;
 import com.google.gson.Gson;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import com.google.gson.reflect.TypeToken;
 
 public class Session implements Runnable{
     private Socket socket;
@@ -62,8 +64,6 @@ public class Session implements Runnable{
     public void handleRequest(Request request) throws IOException {
         String command = request.getCommand();
 
-        isLoggedIn = true;
-        role = "user";
         if(!isLoggedIn){
             if(command.equals("login")){
                 Response response = login(request);
@@ -464,6 +464,113 @@ public class Session implements Runnable{
 
         return response;
     }
+    public Response createNewPlaylist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Playlist playlist = gson.fromJson(json, Playlist.class);
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try {
+            crudPlaylist.newPlaylist(playlist);
+            response.setMessage("Playlist added!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setStatusCode(400);
+            response.setMessage("Error in adding the playlist!");
+        }
+
+        return response;
+    }
+    public Response viewMyPlaylists(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int userId = gson.fromJson(json, Integer.class);
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try{
+            List<Playlist> playlists = crudPlaylist.getPlaylistsOfUser(userId);
+            response.setJson(gson.toJson(playlists));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the playlists!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response viewPlaylist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int playlistId = gson.fromJson(json, Integer.class);
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try{
+            List<Music> musics = crudPlaylist.getPlaylistMusics(playlistId);
+            Playlist playlist = crudPlaylist.getPlaylistById(playlistId);
+            HashMap<String, Object> jsonMap = new HashMap<>();
+            jsonMap.put("playlist", playlist);
+            jsonMap.put("musics", musics);
+            response.setJson(gson.toJson(jsonMap));
+            response.setStatusCode(200);
+            response.setMessage("Playlist returned!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the playlist!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response addMusicToPlaylist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+        HashMap<String, Object> map = gson.fromJson(json, type);
+        int musicId = (Integer) map.get("musicId");
+        int playlistId = (Integer) map.get("playlistId");
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try{
+            crudPlaylist.addMusicToPlaylist(musicId, playlistId);
+            response.setMessage("Music added!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in adding the song to playlist!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response removeMusicFromPlaylist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+        HashMap<String, Object> map = gson.fromJson(json, type);
+        int musicId = (Integer) map.get("musicId");
+        int playlistId = (Integer) map.get("playlistId");
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try{
+            crudPlaylist.removeMusicFromPlaylist(musicId, playlistId);
+            response.setMessage("Music added!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in adding the song to playlist!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
 
     public Response handleUserRequest(Request request){
         String command = request.getCommand();
@@ -479,7 +586,25 @@ public class Session implements Runnable{
             // TODO: good luck with this section :|
         }
         else if (command.equals("newPlaylist")) {
-            // TODO: create table
+            response = createNewPlaylist(request);
+        }
+        else if (command.equals("myPlaylists")) {
+            response = viewMyPlaylists(request);
+        }
+        else if (command.equals("viewPlaylist")) {
+            response = viewPlaylist(request);
+        }
+        else if(command.equals("addMusicToPlaylist")){
+            response = addMusicToPlaylist(request);
+        }
+        else if(command.equals("removeMusicFromPlaylist")){
+            response = removeMusicFromPlaylist(request);
+        }
+        else if(command.equals("likeMusic")){
+            // TODO: Write this function
+        }
+        else if(command.equals("removeLikeMusic")){
+            // TODO: Write this function
         }
         else if (command.equals("viewArtist")) {
             response = viewArtist(request);
