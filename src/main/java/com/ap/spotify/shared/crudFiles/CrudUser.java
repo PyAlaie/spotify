@@ -97,4 +97,17 @@ public class CrudUser {
         ResultSet resultSet = statement.executeQuery();
         return resultSet.next();
     }
+
+    public void updateUser(User user) throws SQLException {
+        String query = "UPDATE users SET username=?, password=?, email=?, profile_pic_path=? WHERE id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, user.getUsername());
+        statement.setString(2, user.hashPassword());
+        statement.setString(3, user.getEmail());
+        statement.setString(4, user.getProfilePicPath());
+        statement.setInt(5, user.getId());
+
+        statement.executeQuery();
+    }
 }

@@ -126,4 +126,48 @@ public class CrudMusic {
 
         return musics;
     }
+
+    public List<Music> search(String expression) throws SQLException {
+        String query = "SELECT * FROM musics WHERE title LIKE '%?%'";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, expression);
+
+        ResultSet res = statement.executeQuery();
+        List<Music> musics = new ArrayList<>();
+
+        while (res.next()){
+            Music music = new Music();
+            music.setId(res.getInt("id"));
+            music.setTitle(res.getString("title"));
+            music.setDuration(res.getInt("duration"));
+            music.setArtist(res.getInt("artist"));
+            music.setCoverPicPath(res.getString("cover_pic_path"));
+            music.setLyricsFilePath(res.getString("lyrics_file_path"));
+            music.setPopularity(res.getInt("popularity"));
+            music.setGenre(res.getInt("genre"));
+            music.setReleaseDate(res.getDate("release_date"));
+            musics.add(music);
+        }
+
+        return musics;
+    }
+
+    public void updateMusic(Music music) throws SQLException {
+        String query = "UPDATE musics SET " +
+                "title=?, cover_pic_path=?, genre=?, album=?, duration=?, lyrics_file_path=?, release_date=?" +
+                " WHERE id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, music.getTitle());
+        statement.setString(2, music.getCoverPicPath());
+        statement.setInt(3, music.getGenre());
+        statement.setInt(4, music.getAlbum());
+        statement.setInt(5, music.getDuration());
+        statement.setString(6, music.getLyricsFilePath());
+        statement.setDate(7, music.getReleaseDate());
+        statement.setInt(8, music.getId());
+
+        statement.executeQuery();
+    }
 }

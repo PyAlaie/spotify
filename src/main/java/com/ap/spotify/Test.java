@@ -1,10 +1,7 @@
 package com.ap.spotify;
 
 import com.ap.spotify.shared.*;
-import com.ap.spotify.shared.models.Artist;
-import com.ap.spotify.shared.models.Genre;
-import com.ap.spotify.shared.models.Music;
-import com.ap.spotify.shared.models.User;
+import com.ap.spotify.shared.models.*;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -37,19 +34,21 @@ public class Test {
 
 
         Gson gson = new Gson();
-        Request request = new Request("getNewMusics");
+        Comment comment = new Comment();
+        comment.setText("hello");
+        comment.setMusic(2);
+        comment.setUser(3);
 
+        Request request = new Request("newComment");
+        request.setJson(gson.toJson(comment));
 
         objOut.writeObject(request);
         objOut.flush();
 
         Response response = (Response) objIn.readObject();
 
-        Type listType = new TypeToken<List<Music>>(){}.getType();
 
-        List<Music> musics = gson.fromJson(response.getJson(), listType);
-
-        System.out.println(musics.get(0).getTitle());
+        System.out.println(response.getMessage());
 
 
     }

@@ -2,15 +2,13 @@ package com.ap.spotify.server;
 
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
-import com.ap.spotify.shared.crudFiles.CrudArtist;
-import com.ap.spotify.shared.crudFiles.CrudGenre;
-import com.ap.spotify.shared.crudFiles.CrudMusic;
-import com.ap.spotify.shared.crudFiles.CrudUser;
+import com.ap.spotify.shared.crudFiles.*;
 import com.ap.spotify.shared.models.*;
 import com.google.gson.Gson;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 public class Session implements Runnable{
@@ -64,6 +62,8 @@ public class Session implements Runnable{
     public void handleRequest(Request request) throws IOException {
         String command = request.getCommand();
 
+        isLoggedIn = true;
+        role = "user";
         if(!isLoggedIn){
             if(command.equals("login")){
                 Response response = login(request);
@@ -122,7 +122,6 @@ public class Session implements Runnable{
 
         return response;
     }
-
     public Response createNewArtist(Request request){
         String json = request.getJson();
         Gson gson = new Gson();
@@ -150,7 +149,6 @@ public class Session implements Runnable{
 
         return response;
     }
-
     public Response login(Request request){
         String json = request.getJson();
         Gson gson = new Gson();
@@ -207,7 +205,55 @@ public class Session implements Runnable{
         }
         return response;
     }
+    public Response createNewComment(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Comment comment = gson.fromJson(json, Comment.class);
+        CrudComment crudComment = new CrudComment(database);
 
+        try {
+            crudComment.newComment(comment);
+            response.setMessage("Comment added!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setStatusCode(400);
+            response.setMessage("Error in adding the comment!");
+        }
+
+        return response;
+    }
+    public Response search(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        String searchedExpression = gson.fromJson(json, String.class);
+
+        CrudMusic crudMusic = new CrudMusic(database);
+        CrudArtist crudArtist = new CrudArtist(database);
+        CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+
+        try {
+            List<Music> musics = crudMusic.search(searchedExpression);
+            List<Artist> artists = crudArtist.search(searchedExpression);
+            // TODO: search also in playlists...
+
+            HashMap<String, Object> jsonMap = new HashMap<>();
+            jsonMap.put("musics", musics);
+            jsonMap.put("artists", artists);
+
+            response.setJson(gson.toJson(jsonMap));
+            response.setMessage("Search result");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in search!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
     public Response getNewMusics(){
         CrudMusic crudMusic = new CrudMusic(database);
         Response response = new Response();
@@ -226,6 +272,198 @@ public class Session implements Runnable{
         }
         return response;
     }
+    public Response getNewAlbums(){
+        CrudAlbum crudAlbum = new CrudAlbum(database);
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        try {
+            List<Album> albums = crudAlbum.getNewAlbums();
+            response.setJson(gson.toJson(albums));
+            response.setStatusCode(200);
+            response.setMessage("New albums!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the albums!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+    public Response viewArtist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int artistId = gson.fromJson(json, Integer.class);
+        CrudArtist crudArtist = new CrudArtist(database);
+
+        try{
+            Artist artist = crudArtist.getArtistById(artistId);
+            if(artist == null){
+                response.setMessage("Artist not found!");
+                response.setStatusCode(404);
+            }
+            else {
+                List<Music> musics = crudArtist.getMusicsOfArtist(artistId);
+
+                HashMap<String, Object> jsonMap = new HashMap<>();
+                jsonMap.put("artist", artist);
+                jsonMap.put("musics", musics);
+                response.setJson(gson.toJson(jsonMap));
+                response.setStatusCode(200);
+                response.setMessage("Artist returned!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the musics!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response viewAlbum(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int albumId = gson.fromJson(json, Integer.class);
+        CrudAlbum crudAlbum = new CrudAlbum(database);
+
+        try{
+            Album album = crudAlbum.getAlbumById(albumId);
+            if(album == null){
+                response.setMessage("Album not found!");
+                response.setStatusCode(404);
+            }
+            else {
+                List<Music> musics = crudAlbum.getAlbumMusics(albumId);
+
+                HashMap<String, Object> jsonMap = new HashMap<>();
+                jsonMap.put("album", album);
+                jsonMap.put("musics", musics);
+                response.setJson(gson.toJson(jsonMap));
+                response.setStatusCode(200);
+                response.setMessage("Album returned!");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the Album!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response updateUserProfile(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        User user = gson.fromJson(json, User.class);
+        CrudUser crudUser = new CrudUser(database);
+
+        try{
+            crudUser.updateUser(user);
+            response.setStatusCode(201);
+            response.setMessage("User updated!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in updating the user profile!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response createNewMusic(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Music music = gson.fromJson(json, Music.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try {
+            crudMusic.newMusic(music);
+            response.setStatusCode(201);
+            response.setMessage("Music added!");
+        } catch (SQLException e) {
+            response.setMessage("Error in creating the music!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+    public Response updateMusic(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Music music = gson.fromJson(json, Music.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try{
+            crudMusic.updateMusic(music);
+            response.setMessage("Music updated!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in updating the music");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response createNewAlbum(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Album album = gson.fromJson(json, Album.class);
+        CrudAlbum crudAlbum = new CrudAlbum(database);
+
+        try {
+            crudAlbum.newAlbum(album);
+            response.setMessage("Album added!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setStatusCode(400);
+            response.setMessage("Error in adding the album!");
+        }
+
+        return response;
+    }
+    public Response updateAlbum(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Album album = gson.fromJson(json, Album.class);
+        CrudAlbum crudAlbum = new CrudAlbum(database);
+
+        try{
+            crudAlbum.updateAlbum(album);
+            response.setMessage("Album updated!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in updating the album");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response updateArtist(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        Artist artist = gson.fromJson(json, Artist.class);
+        CrudArtist crudArtist = new CrudArtist(database);
+
+        try{
+            crudArtist.updateArtist(artist);
+            response.setMessage("Artist updated!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in updating the Artist");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
 
     public Response handleUserRequest(Request request){
         String command = request.getCommand();
@@ -235,22 +473,31 @@ public class Session implements Runnable{
             response = getNewMusics();
         }
         else if(command.equals("newComment")){
-
+            response = createNewComment(request);
         }
-        else if (command.equals("playMusic")) {
-
+        else if (command.equals("downloadMusic")) {
+            // TODO: good luck with this section :|
         }
         else if (command.equals("newPlaylist")) {
-
+            // TODO: create table
         }
         else if (command.equals("viewArtist")) {
-
+            response = viewArtist(request);
         }
         else if (command.equals("showTimeline")) {
-
+            // TODO: create table
         }
         else if (command.equals("search")) {
-
+            response = search(request);
+        }
+        else if (command.equals("updateUserProfile")) {
+            response = updateUserProfile(request);
+        }
+        else if (command.equals("viewAlbum")) {
+            response = viewAlbum(request);
+        }
+        else if (command.equals("getNewAlbums")) {
+            response = getNewAlbums();
         }
 
         return response;
@@ -263,10 +510,19 @@ public class Session implements Runnable{
             response = createNewGenre(request);
         }
         else if (command.equals("newMusic")) {
-
+            response = createNewMusic(request);
         }
-        else if (command.equals("newMusic")) {
-
+        else if(command.equals("editMusic")){
+            response = updateMusic(request);
+        }
+        else if(command.equals("newAlbum")){
+            response = createNewAlbum(request);
+        }
+        else if(command.equals("editAlbum")){
+            response = updateAlbum(request);
+        }
+        else if (command.equals("updateArtistProfile")) {
+            response = updateArtist(request);
         }
 
         return response;
