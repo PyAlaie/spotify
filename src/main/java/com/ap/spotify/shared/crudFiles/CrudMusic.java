@@ -170,4 +170,19 @@ public class CrudMusic {
 
         statement.executeQuery();
     }
+
+    public int getLikesCount(int musicId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM like_link WHERE music_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1,musicId);
+
+        ResultSet res = statement.executeQuery();
+
+        if(res.next()){
+            return res.getInt("count");
+        }
+
+        return 0;
+    }
 }

@@ -1,6 +1,7 @@
 package com.ap.spotify.shared.crudFiles;
 
 import com.ap.spotify.server.Database;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.Music;
 import com.ap.spotify.shared.models.Playlist;
 
@@ -116,5 +117,27 @@ public class CrudPlaylist {
         statement.setInt(2, playlistId);
 
         statement.executeUpdate();
+    }
+
+    public List<Playlist> search(String expression) throws SQLException {
+        String query = "SELECT * FROM playlists WHERE title LIKE '%?%'";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, expression);
+
+        ResultSet res = statement.executeQuery();
+        List<Playlist> playlists = new ArrayList<>();
+
+        if(res.next()){
+            Playlist playlist = new Playlist();
+            playlist.setId(res.getInt("id"));
+            playlist.setTitle(res.getString("title"));
+            playlist.setUser(res.getInt("user"));
+            playlist.setDescription(res.getString("description"));
+
+            playlists.add(playlist);
+        }
+
+        return playlists;
     }
 }

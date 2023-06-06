@@ -3,12 +3,15 @@ package com.ap.spotify.shared.crudFiles;
 import com.ap.spotify.server.Database;
 import com.ap.spotify.shared.BCrypt;
 import com.ap.spotify.shared.Response;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrudUser {
     Database database;
@@ -110,4 +113,143 @@ public class CrudUser {
 
         statement.executeQuery();
     }
+
+    public void followArtist(int userId, int artistId) throws SQLException {
+        String query = "INSERT INTO follow_link (artist_id, user_id) VALUES (?,?)";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, artistId);
+        statement.setInt(2, userId);
+
+        statement.executeUpdate();
+    }
+
+    public void unfollowArtist(int userId, int artistId) throws SQLException {
+        String query = "DELETE FROM follow_link WHERE artist_id=? AND user_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, artistId);
+        statement.setInt(2, userId);
+
+        statement.executeUpdate();
+    }
+
+    public List<Artist> getFollowings(int userId) throws SQLException {
+        String query = "SELECT * FROM follow_link " +
+                "JOIN artists ON artists.id = follow_link.artist_id " +
+                "WHERE user_id = ?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, userId);
+
+        ResultSet res = statement.executeQuery();
+        List<Artist> artists = new ArrayList<>();
+
+        while (res.next()){
+            Artist artist = new Artist();
+            artist.setUsername(res.getString("username"));
+            artist.setPassword(res.getString("password"));
+            artist.setId(res.getInt("id"));
+            artist.setBiography(res.getString("biography"));
+            artist.setProfilePicPath(res.getString("profile_pic_path"));
+            artist.setGenre(res.getInt("genre"));
+            artists.add(artist);
+        }
+
+        return artists;
+    }
+
+    public void likeMusic(int userId, int musicId) throws SQLException {
+        String query = "INSERT INTO like_link (user_id, music_id) VALUES (?,?)";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, userId);
+        statement.setInt(2, musicId);
+
+        statement.executeUpdate();
+    }
+
+    public void unlikeMusic(int userId, int musicId) throws SQLException {
+        String query = "DELETE FROM like_link WHERE user_id=? AND music_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, userId);
+        statement.setInt(2, musicId);
+
+        statement.executeUpdate();
+    }
+
+    public void addFriend(int userId, int friendId) throws SQLException {
+        String query = "SELECT friends FROM users WHERE id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1,userId);
+
+        ResultSet res = statement.executeQuery();
+
+        if(res.next()){
+            String[] friends = res.getString("friends").split(",");
+            ArrayList<String> friendsList = new ArrayList<>(List.of(friends));
+            friendsList.add(String.valueOf(friendId));
+            StringBuilder newFriends = new StringBuilder();
+            boolean flag = true;
+            for(String friend : friendsList){
+                if(flag){
+                    newFriends.append(friend);
+                    flag = false;
+                }
+                else {
+                    newFriends.append(",");
+                    newFriends.append(friend);
+                }
+            }
+
+            query = "UPDATE user SET friends = ? WHERE id=?";
+
+            statement = database.getConnection().prepareStatement(query);
+            statement.setString(1, String.valueOf(newFriends));
+            statement.setInt(2, userId);
+
+            statement.executeUpdate();
+        }
+        //TODO: not sure if the function works, did not test :|
+    }
+
+    public void removeFriend(int userId, int friendId) throws SQLException {
+        String query = "SELECT friends FROM users WHERE id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1,userId);
+
+        ResultSet res = statement.executeQuery();
+
+        if(res.next()){
+            String[] friends = res.getString("friends").split(",");
+            ArrayList<String> friendsList = new ArrayList<>(List.of(friends));
+            StringBuilder newFriends = new StringBuilder();
+
+            boolean flag = true;
+            for(String friend : friendsList){
+                if(!friend.equals(String.valueOf(friendId))) {
+                    if (flag) {
+                        newFriends.append(friend);
+                        flag = false;
+                    } else {
+                        newFriends.append(",");
+                        newFriends.append(friend);
+                    }
+                }
+            }
+
+            query = "UPDATE user SET friends = ? WHERE id=?";
+
+            statement = database.getConnection().prepareStatement(query);
+            statement.setString(1, String.valueOf(newFriends));
+            statement.setInt(2, userId);
+
+            statement.executeUpdate();
+        }
+    }
+
+    //TODO: not sure if the function works, did not test :|
 }

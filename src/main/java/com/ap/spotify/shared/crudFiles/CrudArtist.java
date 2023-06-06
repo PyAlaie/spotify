@@ -196,4 +196,18 @@ public class CrudArtist {
 
         return artists;
     }
+
+
+    public int getFollowersCount(int artistId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM follow_link WHERE artist_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, artistId);
+
+        ResultSet res = statement.executeQuery();
+        if(res.next()){
+            return res.getInt("count");
+        }
+        return 0;
+    }
 }
