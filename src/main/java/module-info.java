@@ -12,4 +12,6 @@ module com.ap.spotify {
     opens com.ap.spotify.shared.models to com.google.gson;
     exports com.ap.spotify.shared;
     opens com.ap.spotify.shared to javafx.fxml;
+    exports com.ap.spotify.client.controllers;
+    opens com.ap.spotify.client.controllers to javafx.fxml;
 }

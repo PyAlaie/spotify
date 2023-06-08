@@ -58,6 +58,7 @@ public class CrudArtist {
             artist.setBiography(res.getString("biography"));
             artist.setProfilePicPath(res.getString("profile_pic_path"));
             artist.setGenre(res.getInt("genre"));
+            artist.setRole("artist");
 
             if(BCrypt.checkpw(password, artist.getPassword())){
                 response.setMessage("Logged in!");

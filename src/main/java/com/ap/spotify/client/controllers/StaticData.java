@@ -11,6 +11,5 @@ public class StaticData {
     public static ObjectOutputStream objOut;
     public static ObjectInputStream objIn;
     public static Account loggedInAccount;
-    public static String role;
     public static boolean isLogggedIn = false;
 }

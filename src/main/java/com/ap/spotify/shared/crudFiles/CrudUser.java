@@ -51,6 +51,7 @@ public class CrudUser {
             user.setEmail(res.getString("email"));
             user.setProfilePicPath(res.getString("profile_pic_path"));
             user.setPassword(res.getString("password"));
+            user.setRole("user");
 
             if(BCrypt.checkpw(password, user.getPassword())){
                 response.setMessage("Logged in!");

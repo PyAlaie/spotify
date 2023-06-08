@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="530.0" prefWidth="698.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Home">
+   <children>
+      <VBox prefHeight="530.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fx:id="label" fill="#1db853" strokeType="OUTSIDE" strokeWidth="0.0" text="New Musics" textAlignment="CENTER">
+               <font>
+                  <Font name="Hack Bold" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </Text>
+            <HBox fx:id="newMusics" prefHeight="120.0" prefWidth="638.0" style="-fx-background-color: #B3B3B3;">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+            <Text fill="#1db853" strokeType="OUTSIDE" strokeWidth="0.0" text="New Albums" textAlignment="CENTER">
+               <font>
+                  <Font name="Hack Bold" size="35.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Text>
+            <HBox prefHeight="132.0" prefWidth="658.0" style="-fx-background-color: #B3B3B3;">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
