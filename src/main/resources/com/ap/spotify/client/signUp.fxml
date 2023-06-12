@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane minWidth="-Infinity" prefHeight="443.0" prefWidth="707.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
+<AnchorPane minWidth="-Infinity" prefHeight="443.0" prefWidth="707.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
    <children>
       <Text fill="#1db853" layoutX="204.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="203.78076171875" AnchorPane.topAnchor="39.0">
          <font>
@@ -21,7 +21,7 @@
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordTxt" alignment="CENTER" layoutX="198.0" layoutY="229.0" prefHeight="59.0" prefWidth="300.0" promptText="Password" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="209.0">
+      <TextField fx:id="passwordTxt" accessibleRole="PASSWORD_FIELD" alignment="CENTER" layoutX="198.0" layoutY="229.0" prefHeight="59.0" prefWidth="300.0" promptText="Password" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="209.0">
          <font>
             <Font size="19.0" />
          </font>
