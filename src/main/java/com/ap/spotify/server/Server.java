@@ -41,6 +41,7 @@ public class Server {
 
         } catch (SQLException e) {
             System.err.println("Unable to connect to database!");
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
         finally {

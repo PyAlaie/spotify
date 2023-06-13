@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" text="untitled" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <content>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #000000;">
+         <children>
+            <AnchorPane layoutX="-140.0" layoutY="120.0" prefHeight="54.0" prefWidth="569.0" />
+            <ListView layoutX="1.0" layoutY="255.0" prefHeight="92.0" prefWidth="591.0" style="-fx-background-color: #808080; -fx-border-color: #1DB954; -fx-border-width: 12;" />
+            <ListView layoutX="1.0" layoutY="363.0" prefHeight="92.0" prefWidth="591.0" style="-fx-background-color: #808080; -fx-border-color: #1DB954; -fx-border-width: 12;" />
+            <Label contentDisplay="CENTER" layoutX="-2.0" prefHeight="64.0" prefWidth="596.0" style="-fx-background-color: #1DB954#8fbc8f;" textAlignment="CENTER" textFill="#242724">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Button layoutX="546.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="57.0" style="-fx-background-color: #f#C0C0C05f5dc;" text="search" />
+            <ListView layoutX="1.0" layoutY="147.0" prefHeight="92.0" prefWidth="591.0" style="-fx-background-color: #808080; -fx-border-width: 12; -fx-border-color: #1DB954;" />
+            <Text layoutX="39.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Songs" wrappingWidth="211.63671875">
+               <font>
+                  <Font size="46.0" />
+               </font>
+            </Text>
+            <Text layoutX="39.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Albums" wrappingWidth="245.65625">
+               <font>
+                  <Font size="46.0" />
+               </font>
+            </Text>
+            <Text layoutX="39.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Playlists" wrappingWidth="199.63671875">
+               <font>
+                  <Font size="46.0" />
+               </font>
+            </Text>
+            <AnchorPane layoutX="-3.0" layoutY="-1.0" prefHeight="66.0" prefWidth="549.0">
+               <children>
+                  <Text layoutX="29.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="search..." wrappingWidth="153.63671875">
+                     <font>
+                        <Font size="31.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+  </content>
+</TitledPane>
