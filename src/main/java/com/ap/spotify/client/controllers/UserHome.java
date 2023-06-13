@@ -46,4 +46,8 @@ public class UserHome implements Initializable {
         StaticData.playlistToOpen = 1;
         loadScene("playlistView.fxml");
     }
+
+    public void search(ActionEvent event){
+        loadScene("search.fxml");
+    }
 }
