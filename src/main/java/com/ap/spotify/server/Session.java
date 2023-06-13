@@ -776,6 +776,9 @@ public class Session implements Runnable{
         if (command.equals("getNewMusics")) {
             response = getNewMusics();
         }
+        else if (command.equals("recommendMusic")) {
+            // TODO: good luck my friend ...
+        }
         else if(command.equals("newComment")){
             response = createNewComment(request);
         }

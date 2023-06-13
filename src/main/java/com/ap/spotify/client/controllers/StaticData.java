@@ -12,4 +12,6 @@ public class StaticData {
     public static ObjectInputStream objIn;
     public static Account loggedInAccount;
     public static boolean isLogggedIn = false;
+    public static int musicToOpenId;
+    public static int playlistToOpen;
 }

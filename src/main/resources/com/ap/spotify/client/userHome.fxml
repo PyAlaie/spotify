@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <SplitPane dividerPositions="0.30277013985182943" prefHeight="531.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.UserHome">
    <items>
       <AnchorPane prefHeight="528.0" prefWidth="1000.0">
@@ -28,7 +27,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Button>
-                              <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="617.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 1 0 0 0;" text="My Playlists" textFill="WHITE">
+                              <Button mnemonicParsing="false" onAction="#myLibrary" prefHeight="65.0" prefWidth="617.0" style="-fx-background-color: transparent; -fx-border-color: white; -fx-border-width: 1 0 0 0;" text="My Library" textFill="WHITE">
                                  <font>
                                     <Font size="20.0" />
                                  </font>

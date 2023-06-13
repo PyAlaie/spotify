@@ -37,6 +37,7 @@ public class CrudMusic {
         String query = "SELECT * FROM musics WHERE id=?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1,id);
         ResultSet res = statement.executeQuery();
 
         if(res.next()){

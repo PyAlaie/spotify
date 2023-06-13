@@ -7,6 +7,15 @@ public class Album {
     private String title;
     private Date releaseDate;
     private int popularity;
+    private String coverPicPath;
+
+    public String getCoverPicPath() {
+        return coverPicPath;
+    }
+
+    public void setCoverPicPath(String coverPicPath) {
+        this.coverPicPath = coverPicPath;
+    }
 
     public int getArtist() {
         return artist;

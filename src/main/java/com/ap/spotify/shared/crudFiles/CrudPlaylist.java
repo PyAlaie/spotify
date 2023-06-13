@@ -52,10 +52,11 @@ public class CrudPlaylist {
     }
 
     public List<Music> getPlaylistMusics(int playlistId) throws SQLException {
-        String query = "SELECT * FROM musics " +
-                "JOIN playlist_music_link ON musics.id = playlist_music_link.music " +
-                "JOIN playlist_music_link ON playlists.id = playlist_music_link.playlist" +
-                "WHERE playlists.id = ?";
+        String query = "SELECT musics.*" +
+                " FROM musics" +
+                " JOIN playlist_music_link" +
+                " ON musics.id = playlist_music_link.music" +
+                " WHERE playlist_music_link.playlist = ?;";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setInt(1, playlistId);
@@ -81,6 +82,7 @@ public class CrudPlaylist {
     }
 
     public Playlist getPlaylistById(int playlistId) throws SQLException {
+        System.out.println(playlistId);
         String query = "SELECT * FROM playlists WHERE id=?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);

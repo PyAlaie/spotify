@@ -41,4 +41,9 @@ public class UserHome implements Initializable {
             throw new RuntimeException(ioException);
         }
     }
+
+    public void myLibrary(ActionEvent e){
+        StaticData.playlistToOpen = 1;
+        loadScene("playlistView.fxml");
+    }
 }

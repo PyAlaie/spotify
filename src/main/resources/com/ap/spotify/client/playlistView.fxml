@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="497.0" prefWidth="711.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.PlaylistView">
+   <children>
+      <Label fx:id="playlistName" alignment="CENTER" layoutX="70.0" layoutY="25.0" prefHeight="47.0" prefWidth="565.0" text="Playlist name" textAlignment="CENTER" textFill="#1db954" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="25.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <ListView fx:id="playlistMusics" layoutX="70.0" layoutY="88.0" prefHeight="384.0" prefWidth="623.0" style="-fx-background-color: #535353; -fx-font-size: 22 px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0" />
+   </children>
+</AnchorPane>

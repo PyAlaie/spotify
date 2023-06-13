@@ -1,7 +1,6 @@
 package com.ap.spotify.shared.models;
 
 public class Artist extends Account{
-    private int id;
     private String biography;
     private int genre;
     public String getProfilePicPath() {
@@ -14,13 +13,6 @@ public class Artist extends Account{
 
     private String profilePicPath;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
     public String getBiography() {
         return biography;
     }

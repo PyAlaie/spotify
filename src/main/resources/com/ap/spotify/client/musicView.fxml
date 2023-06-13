@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="546.0" prefWidth="713.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicView">
+   <children>
+      <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../../../../../../../../Desktop/image.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="musicName" layoutX="249.0" layoutY="60.0" prefHeight="62.0" prefWidth="396.0" text="Music Name" textFill="#1db954" AnchorPane.leftAnchor="195.0" AnchorPane.topAnchor="0.0">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <Label fx:id="artist" layoutX="225.0" layoutY="130.0" prefHeight="17.0" prefWidth="137.0" text="Artist: " textFill="WHITE" AnchorPane.leftAnchor="195.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="genre" layoutX="225.0" layoutY="156.0" prefHeight="17.0" prefWidth="137.0" text="Genre:" textFill="WHITE" AnchorPane.leftAnchor="195.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="date" layoutX="225.0" layoutY="182.0" prefHeight="26.0" prefWidth="200.0" text="Release date:" textFill="WHITE" AnchorPane.leftAnchor="195.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="popularity" layoutX="225.0" layoutY="208.0" prefHeight="17.0" prefWidth="137.0" text="Popularity:" textFill="WHITE" AnchorPane.leftAnchor="195.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <ListView fx:id="commentsListView" layoutX="60.0" layoutY="245.0" prefHeight="222.0" prefWidth="381.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" />
+      <Button layoutX="450.0" layoutY="377.0" mnemonicParsing="false" onAction="#download" style="-fx-background-color: #1db954; -fx-text-fill: white;" text="Download" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+      </Button>
+      <TextField fx:id="commentTxt" layoutX="264.0" layoutY="170.0" prefHeight="30.0" prefWidth="277.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <Button fx:id="newCommentBtn" layoutX="311.0" layoutY="183.0" mnemonicParsing="false" onAction="#newComment" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #1db954; -fx-text-fill: white;" text="Comment" AnchorPane.bottomAnchor="0.0" />
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</AnchorPane>
