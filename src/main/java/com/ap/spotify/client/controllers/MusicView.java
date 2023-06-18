@@ -1,5 +1,6 @@
 package com.ap.spotify.client.controllers;
 
+import com.ap.spotify.Test;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Comment;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
@@ -30,6 +33,8 @@ public class MusicView implements Initializable {
     ListView<String> commentsListView;
     @FXML
     TextField commentTxt;
+    @FXML
+    ImageView coverPic;
 
     private int openedMusic;
 
@@ -69,7 +74,17 @@ public class MusicView implements Initializable {
         genre.setText(genre.getText()+ music.getGenre());
         artist.setText(artist.getText()+ music.getArtist());
         popularity.setText(popularity.getText()+ music.getPopularity());
-        // TODO: write this function
+
+        Image image = new Image(Test.class.getResource("cloud/image.jpg").toExternalForm());
+        if(music.getCoverPicPath() != null){
+            try {
+                image = new Image(Test.class.getResource("cloud/" + music.getCoverPicPath()).toExternalForm());
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        coverPic.setImage(image);
     }
 
     public void putComments(List<Comment> comments){

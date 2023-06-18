@@ -67,4 +67,9 @@ public class Album {
     public void setGenre(int genre) {
         this.genre = genre;
     }
+
+    @Override
+    public String toString() {
+        return title;
+    }
 }

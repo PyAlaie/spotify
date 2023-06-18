@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrudGenre {
     private Database database;
@@ -54,5 +56,24 @@ public class CrudGenre {
         }
 
         return genre;
+    }
+
+    public List<Genre> getGenres() throws SQLException {
+        String query = "SELECT * FROM genres";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+
+        ResultSet resultSet = statement.executeQuery();
+        List<Genre> genres = new ArrayList<>();
+
+        while (resultSet.next()){
+            Genre genre = new Genre();
+            genre.setTitle(resultSet.getString("title"));
+            genre.setDescription(resultSet.getString("description"));
+            genre.setId(resultSet.getInt("id"));
+            genres.add(genre);
+        }
+
+        return genres;
     }
 }

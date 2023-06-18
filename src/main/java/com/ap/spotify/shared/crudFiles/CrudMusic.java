@@ -16,8 +16,8 @@ public class CrudMusic {
         this.database = database;
     }
     public void newMusic(Music music) throws SQLException {
-        String query = "INSERT INTO users (title, duration, release_date, popularity, cover_pic_path, lyrics_file_path, artist, album, genre)" +
-                "VALUES (?,?,?,?,?,?,?,?,?)";
+        String query = "INSERT INTO musics (title, duration, release_date, popularity, cover_pic_path, lyrics_file_path, artist, album, genre, music_file_path)" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setString(1, music.getTitle());
@@ -29,6 +29,7 @@ public class CrudMusic {
         statement.setInt(7, music.getArtist());
         statement.setInt(8, music.getAlbum());
         statement.setInt(9, music.getGenre());
+        statement.setString(10, music.getMusicFilePath());
 
         statement.executeUpdate();
     }
@@ -51,6 +52,7 @@ public class CrudMusic {
             music.setPopularity(res.getInt("popularity"));
             music.setGenre(res.getInt("genre"));
             music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
             return music;
         }
 
@@ -75,6 +77,8 @@ public class CrudMusic {
             music.setPopularity(res.getInt("popularity"));
             music.setGenre(res.getInt("genre"));
             music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+
             musics.add(music);
         }
 
@@ -122,6 +126,8 @@ public class CrudMusic {
             music.setPopularity(res.getInt("popularity"));
             music.setGenre(res.getInt("genre"));
             music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+
             musics.add(music);
         }
 
@@ -129,10 +135,10 @@ public class CrudMusic {
     }
 
     public List<Music> search(String expression) throws SQLException {
-        String query = "SELECT * FROM musics WHERE title LIKE '%?%'";
+        String query = "SELECT * FROM musics WHERE title LIKE ?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
-        statement.setString(1, expression);
+        statement.setString(1, "%" + expression + "%");
 
         ResultSet res = statement.executeQuery();
         List<Music> musics = new ArrayList<>();
@@ -148,6 +154,8 @@ public class CrudMusic {
             music.setPopularity(res.getInt("popularity"));
             music.setGenre(res.getInt("genre"));
             music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+
             musics.add(music);
         }
 
@@ -169,7 +177,7 @@ public class CrudMusic {
         statement.setDate(7, music.getReleaseDate());
         statement.setInt(8, music.getId());
 
-        statement.executeQuery();
+        statement.executeUpdate();
     }
 
     public int getLikesCount(int musicId) throws SQLException {

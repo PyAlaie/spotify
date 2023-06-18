@@ -1,5 +1,6 @@
 package com.ap.spotify.server;
 
+import com.ap.spotify.Test;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.crudFiles.*;
@@ -8,9 +9,12 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.Socket;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
+
 import com.google.gson.reflect.TypeToken;
 
 public class Session implements Runnable{
@@ -386,8 +390,9 @@ public class Session implements Runnable{
             response.setStatusCode(201);
             response.setMessage("Music added!");
         } catch (SQLException e) {
-            response.setMessage("Error in creating the music!");
+            response.setMessage(e.getMessage());
             response.setStatusCode(400);
+            e.printStackTrace();
         }
         return response;
     }
@@ -768,6 +773,127 @@ public class Session implements Runnable{
 
         return response;
     }
+    public Response getArtistMusics(Request request){
+        CrudArtist crudArtist = new CrudArtist(database);
+        int artistId = new Gson().fromJson(request.getJson(), Integer.class);
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        try {
+            List<Music> musicList = crudArtist.getMusicsOfArtist(artistId);
+            response.setJson(gson.toJson(musicList));
+            response.setStatusCode(200);
+            response.setMessage("Artist Musics!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the musics!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+    public Response getArtistAlbums(Request request){
+        CrudArtist crudArtist = new CrudArtist(database);
+        int artistId = new Gson().fromJson(request.getJson(), Integer.class);
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        try {
+            List<Album> musicList = crudArtist.getAlbumsOfArtist(artistId);
+            response.setJson(gson.toJson(musicList));
+            response.setStatusCode(200);
+            response.setMessage("Artist albums!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the albums!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+    public Response getGenres(Request request){
+        CrudGenre crudGenre = new CrudGenre(database);
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        try {
+            List<Genre> genres = crudGenre.getGenres();
+            response.setJson(gson.toJson(genres));
+            response.setStatusCode(200);
+            response.setMessage("genres!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the genres!");
+            response.setStatusCode(400);
+        }
+        return response;
+    }
+    public Response uploadCoverPic(Request request){
+        Response response = new Response();
+
+        byte[] bytes = new Gson().fromJson(request.getJson(), byte[].class);
+
+        String imgName = createRandomString() + ".png";
+        File file = new File( "src/main/resources/com/ap/spotify/cloud/" + imgName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bytes);
+            fos.close();
+
+            response.setMessage("Image Uploaded!");
+            response.setStatusCode(201);
+            response.setJson(new Gson().toJson(imgName));
+        } catch (IOException e) {
+            response.setStatusCode(400);
+            response.setMessage(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return response;
+    }
+    public Response uploadMusic(Request request){
+        Response response = new Response();
+
+        byte[] bytes = new Gson().fromJson(request.getJson(), byte[].class);
+
+        String musicName = createRandomString() + ".mp3";
+        File file = new File( "src/main/resources/com/ap/spotify/cloud/" + musicName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(bytes);
+            fos.close();
+
+            response.setMessage("Music Uploaded!");
+            response.setStatusCode(201);
+            response.setJson(new Gson().toJson(musicName));
+        } catch (IOException e) {
+            response.setStatusCode(400);
+            response.setMessage(e.getMessage());
+            throw new RuntimeException(e);
+        }
+        return response;
+    }
+    public String createRandomString(){
+        int length = 10;
+
+        // Define the character set
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+        // Create a StringBuilder object to build the string
+        StringBuilder sb = new StringBuilder(length);
+
+        // Create a new Random object
+        Random random = new Random();
+
+        // Generate random characters and add them to the StringBuilder
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(chars.length());
+            sb.append(chars.charAt(index));
+        }
+
+        // Convert the StringBuilder to a String and print it
+        return sb.toString();
+    }
 
     public Response handleUserRequest(Request request){
         String command = request.getCommand();
@@ -866,6 +992,24 @@ public class Session implements Runnable{
         }
         else if (command.equals("updateArtistProfile")) {
             response = updateArtist(request);
+        }
+        else if (command.equals("getArtistMusics")) {
+            response = getArtistMusics(request);
+        }
+        else if (command.equals("getArtistAlbums")) {
+            response = getArtistAlbums(request);
+        }
+        else if (command.equals("getGenres")) {
+            response = getGenres(request);
+        }
+        else if(command.equals("uploadCoverPic")){
+            response = uploadCoverPic(request);
+        }
+        else if(command.equals("uploadMusic")){
+            response = uploadMusic(request);
+        }
+        else if (command.equals("viewAlbum")) {
+            response = viewAlbum(request);
         }
 
         return response;

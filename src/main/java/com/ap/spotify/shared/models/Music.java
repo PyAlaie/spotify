@@ -94,5 +94,13 @@ public class Music {
     private int artist;
     private int album;
     private int genre;
+    private String musicFilePath;
 
+    public String getMusicFilePath() {
+        return musicFilePath;
+    }
+
+    public void setMusicFilePath(String musicFilePath) {
+        this.musicFilePath = musicFilePath;
+    }
 }

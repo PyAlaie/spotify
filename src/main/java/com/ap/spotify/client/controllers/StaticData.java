@@ -1,6 +1,7 @@
 package com.ap.spotify.client.controllers;
 
 import com.ap.spotify.shared.models.Account;
+import com.ap.spotify.shared.models.Music;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -13,5 +14,7 @@ public class StaticData {
     public static Account loggedInAccount;
     public static boolean isLogggedIn = false;
     public static int musicToOpenId;
+    public static int albumToOpenId;
     public static int playlistToOpen;
+    public static Music musicToEdit;
 }

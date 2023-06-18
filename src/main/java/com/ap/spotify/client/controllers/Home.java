@@ -46,7 +46,12 @@ public class Home implements Initializable {
                 ImageView musicCover = new ImageView();
                 musicCover.setImage(image);
                 if(music.getCoverPicPath() != null){
-                    musicCover = new ImageView(music.getCoverPicPath());
+                    try{
+                        musicCover = new ImageView(Test.class.getResource("cloud/").toExternalForm() + music.getCoverPicPath());
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
                 musicCover.setFitHeight(100);
                 musicCover.setPreserveRatio(false);

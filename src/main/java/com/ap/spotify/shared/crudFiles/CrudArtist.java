@@ -3,6 +3,7 @@ package com.ap.spotify.shared.crudFiles;
 import com.ap.spotify.server.Database;
 import com.ap.spotify.shared.BCrypt;
 import com.ap.spotify.shared.Response;
+import com.ap.spotify.shared.models.Album;
 import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.Music;
 import com.ap.spotify.shared.models.User;
@@ -159,6 +160,29 @@ public class CrudArtist {
         return musics;
     }
 
+    public List<Album> getAlbumsOfArtist(int artistId) throws SQLException {
+        String query = "SELECT * FROM albums WHERE artist=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, artistId);
+
+        ResultSet res = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+
+        while (res.next()){
+            Album album = new Album();
+            album.setTitle(res.getString("title"));
+            album.setId(res.getInt("id"));
+            album.setGenre(res.getInt("genre"));
+            album.setPopularity(res.getInt("popularity"));
+            album.setArtist(res.getInt("artist"));
+            album.setReleaseDate(res.getDate("release_date"));
+            albums.add(album);
+        }
+
+        return albums;
+    }
+
 
     public void updateArtist(Artist artist) throws SQLException {
         String query = "UPDATE users SET username=?, password=?, biography=?, profile_pic_path=?, genre=? WHERE id=?";
@@ -175,10 +199,10 @@ public class CrudArtist {
     }
 
     public List<Artist> search(String expression) throws SQLException {
-        String query = "SELECT * FROM artists WHERE username LIKE '%?%'";
+        String query = "SELECT * FROM artists WHERE username LIKE ?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
-        statement.setString(1, expression);
+        statement.setString(1, "%" + expression + "%");
 
         ResultSet res = statement.executeQuery();
         List<Artist> artists = new ArrayList<>();

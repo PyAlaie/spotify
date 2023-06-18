@@ -60,7 +60,8 @@ public class Login {
                 closeWindow(e);
             }
             else {
-                // TODO: open Artist panel
+                openStage("artistPanel.fxml");
+                closeWindow(e);
             }
         }
     }

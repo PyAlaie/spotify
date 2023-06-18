@@ -122,10 +122,11 @@ public class CrudPlaylist {
     }
 
     public List<Playlist> search(String expression) throws SQLException {
-        String query = "SELECT * FROM playlists WHERE title LIKE '%?%'";
+        String query = "SELECT * FROM playlists WHERE title LIKE ?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
-        statement.setString(1, expression);
+        statement.setString(1, "%" + expression + "%");
+
 
         ResultSet res = statement.executeQuery();
         List<Playlist> playlists = new ArrayList<>();

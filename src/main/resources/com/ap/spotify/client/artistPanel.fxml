@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="702.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.ArtistPanel">
+  <tabs>
+    <Tab text="Musics">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutY="434.0" mnemonicParsing="false" onAction="#addMusic" prefHeight="50.0" style="-fx-background-color: #1DB954;" text="Add new music" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <VBox fx:id="musicsBox" layoutX="46.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="8.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadMusics" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11A0FB;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+    <Tab text="Albums">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="108.0" layoutY="434.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="594.0" style="-fx-background-color: #1DB954;" text="Add new album" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <VBox fx:id="albumsBox" layoutX="93.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="24.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadAlbums" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11a0fb;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab text="Genres">
+         <content>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="475.0" layoutY="434.0" mnemonicParsing="false" onAction="#newGenre" prefHeight="51.0" prefWidth="227.0" style="-fx-background-color: #1DB954;" text="Add new genre" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Button>
+                  <VBox fx:id="genresBox" layoutX="93.0" layoutY="14.0" prefHeight="255.0" prefWidth="702.0" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="genreName" layoutY="268.0" prefHeight="52.0" prefWidth="475.0" promptText="Genre name" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="226.77624095125753">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextArea fx:id="genreDescription" layoutX="149.0" layoutY="339.0" prefHeight="74.0" prefWidth="201.0" promptText="Description" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+  </tabs>
+</TabPane>

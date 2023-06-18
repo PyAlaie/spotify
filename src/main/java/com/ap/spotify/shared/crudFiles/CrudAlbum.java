@@ -106,7 +106,7 @@ public class CrudAlbum {
     }
 
     public void updateAlbum(Album album) throws SQLException {
-        String query = "UPDATE musics SET " +
+        String query = "UPDATE albums SET " +
                 "title=?, genre=?, release_date=?" +
                 " WHERE id=?";
 
@@ -116,6 +116,6 @@ public class CrudAlbum {
         statement.setDate(3, album.getReleaseDate());
         statement.setInt(4, album.getId());
 
-        statement.executeQuery();
+        statement.executeUpdate();
     }
 }
