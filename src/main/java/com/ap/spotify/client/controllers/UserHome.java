@@ -1,11 +1,15 @@
 package com.ap.spotify.client.controllers;
 
+import com.ap.spotify.Test;
 import com.ap.spotify.client.HelloApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
@@ -16,10 +20,26 @@ import java.util.ResourceBundle;
 public class UserHome implements Initializable {
     @FXML
     AnchorPane container;
+    @FXML
+    Label usernameLbl;
+    @FXML
+    ImageView profilePic;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loadScene("home.fxml");
+        usernameLbl.setText(StaticData.loggedInAccount.getUsername());
+
+        Image image = new Image(Test.class.getResource("cloud/profile.png").toExternalForm());
+        if(StaticData.loggedInUser.getProfilePicPath() != null){
+            try {
+                image = new Image(Test.class.getResource("cloud/" + StaticData.loggedInUser.getProfilePicPath()).toExternalForm());
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        profilePic.setImage(image);
     }
 
     public void home(ActionEvent e){
@@ -42,12 +62,15 @@ public class UserHome implements Initializable {
         }
     }
 
-    public void myLibrary(ActionEvent e){
-        StaticData.playlistToOpen = 1;
-        loadScene("playlistView.fxml");
-    }
+//    public void myLibrary(ActionEvent e){
+//        StaticData.playlistToOpen = 1;
+//        loadScene("playlistView.fxml");
+//    }
 
     public void search(ActionEvent event){
         loadScene("search.fxml");
+    }
+    public void myLibrary(ActionEvent event){
+        loadScene("myLibrary.fxml");
     }
 }

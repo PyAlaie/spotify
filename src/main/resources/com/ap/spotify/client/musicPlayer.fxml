@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="258.0" prefWidth="601.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicPlayer">
+   <children>
+      <Label fx:id="musicTitleLbl" alignment="CENTER" layoutY="22.0" text="Label" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <ProgressBar fx:id="musicTimeline" layoutY="129.0" prefHeight="30.0" prefWidth="601.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="pausePlayBtn" layoutX="230.0" layoutY="181.0" mnemonicParsing="false" onAction="#pauseAndPlay" prefHeight="35.0" prefWidth="140.0" text="Puase/play">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Slider fx:id="volumeSlider" layoutX="435.0" layoutY="191.0" max="100.0" prefHeight="7.0" prefWidth="150.0" value="50.0" />
+      <ComboBox fx:id="speedBox" layoutX="14.0" layoutY="180.0" onAction="#changeSpeed" prefHeight="36.0" prefWidth="109.0" promptText="SPEED" />
+      <Button layoutX="147.0" layoutY="186.0" mnemonicParsing="false" onAction="#previousMedia" text="Pervious" />
+      <Button layoutX="378.0" layoutY="186.0" mnemonicParsing="false" onAction="#nextMedia" text="Next" />
+   </children>
+</AnchorPane>

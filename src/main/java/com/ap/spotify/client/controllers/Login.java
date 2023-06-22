@@ -4,21 +4,18 @@ import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Account;
+import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.Node;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class Login {
     @FXML
@@ -47,6 +44,7 @@ public class Login {
             String json = response.getJson();
             StaticData.isLogggedIn = true;
             StaticData.loggedInAccount = gson.fromJson(json, Account.class);
+            StaticData.loggedInUser = gson.fromJson(json, User.class);
         }
         else {
             label.setText(response.getMessage());

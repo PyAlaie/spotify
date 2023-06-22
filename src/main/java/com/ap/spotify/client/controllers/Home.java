@@ -72,7 +72,6 @@ public class Home implements Initializable {
                 musicPane.getChildren().add(title);
 
                 musicPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                    @Override
                     public void handle(MouseEvent event) {
                         StaticData.musicToOpenId = music.getId();
 

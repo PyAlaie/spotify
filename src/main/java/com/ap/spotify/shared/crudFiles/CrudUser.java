@@ -103,16 +103,15 @@ public class CrudUser {
     }
 
     public void updateUser(User user) throws SQLException {
-        String query = "UPDATE users SET username=?, password=?, email=?, profile_pic_path=? WHERE id=?";
+        String query = "UPDATE users SET username=?, email=?, profile_pic_path=? WHERE id=?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setString(1, user.getUsername());
-        statement.setString(2, user.hashPassword());
-        statement.setString(3, user.getEmail());
-        statement.setString(4, user.getProfilePicPath());
-        statement.setInt(5, user.getId());
+        statement.setString(2, user.getEmail());
+        statement.setString(3, user.getProfilePicPath());
+        statement.setInt(4, user.getId());
 
-        statement.executeQuery();
+        statement.executeUpdate();
     }
 
     public void followArtist(int userId, int artistId) throws SQLException {
@@ -178,6 +177,18 @@ public class CrudUser {
         statement.setInt(2, musicId);
 
         statement.executeUpdate();
+    }
+
+    public boolean isLiked(int userId, int musicId) throws SQLException {
+        String query = "SELECT * FROM like_link WHERE user_id=? AND music_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, userId);
+        statement.setInt(2, musicId);
+
+        ResultSet res = statement.executeQuery();
+
+        return res.next();
     }
 
     public void addFriend(int userId, int friendId) throws SQLException {
@@ -252,5 +263,15 @@ public class CrudUser {
         }
     }
 
-    //TODO: not sure if the function works, did not test :|
+    public boolean isFollowing(int userId, int artistId) throws SQLException {
+        String query = "SELECT * FROM follow_link WHERE artist_id=? AND user_id=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, artistId);
+        statement.setInt(2, userId);
+
+        ResultSet res = statement.executeQuery();
+
+        return res.next();
+    }
 }

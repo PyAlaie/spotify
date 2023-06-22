@@ -31,7 +31,7 @@ application {
 
 javafx {
     version = '19.0.2'
-    modules = ['javafx.controls', 'javafx.fxml']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media']
 }
 
 dependencies {
@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.10.1'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation 'org.openjfx:javafx-media:19.0.2'
 }
 
 test {

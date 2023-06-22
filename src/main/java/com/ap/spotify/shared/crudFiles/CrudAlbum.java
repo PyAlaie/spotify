@@ -3,6 +3,7 @@ package com.ap.spotify.shared.crudFiles;
 import com.ap.spotify.server.Database;
 import com.ap.spotify.shared.models.Album;
 import com.ap.spotify.shared.models.Music;
+import com.ap.spotify.shared.models.Playlist;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,5 +118,31 @@ public class CrudAlbum {
         statement.setInt(4, album.getId());
 
         statement.executeUpdate();
+    }
+
+    public List<Album> search(String expression) throws SQLException {
+        String query = "SELECT * FROM albums WHERE title LIKE ?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, "%" + expression + "%");
+
+
+        ResultSet res = statement.executeQuery();
+        List<Album> albums = new ArrayList<>();
+
+        if(res.next()){
+            Album album = new Album();
+
+            album.setTitle(res.getString("title"));
+            album.setId(res.getInt("id"));
+            album.setGenre(res.getInt("genre"));
+            album.setPopularity(res.getInt("popularity"));
+            album.setArtist(res.getInt("artist"));
+            album.setReleaseDate(res.getDate("release_date"));
+
+            albums.add(album);
+        }
+
+        return albums;
     }
 }

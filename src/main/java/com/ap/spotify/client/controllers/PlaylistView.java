@@ -32,7 +32,7 @@ public class PlaylistView implements Initializable {
     Label playlistName;
     @FXML
     ListView<Button> playlistMusics;
-
+    Playlist playlist;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,7 +53,7 @@ public class PlaylistView implements Initializable {
                 Type type = new com.google.gson.reflect.TypeToken<HashMap<String, Object>>(){}.getType();
                 HashMap<String, Object> map = new Gson().fromJson(response.getJson(), type);
 
-                Playlist playlist = new Gson().fromJson(new Gson().toJson(map.get("playlist")), Playlist.class);
+                playlist = new Gson().fromJson(new Gson().toJson(map.get("playlist")), Playlist.class);
                 List<Music> musics = (List<Music>) map.get("musics");
 
                 playlistName.setText(playlist.getTitle());

@@ -1,6 +1,5 @@
 package com.ap.spotify.server;
 
-import com.ap.spotify.Test;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.crudFiles.*;
@@ -9,7 +8,6 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.Socket;
-import java.net.URL;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -237,16 +235,19 @@ public class Session implements Runnable{
         CrudMusic crudMusic = new CrudMusic(database);
         CrudArtist crudArtist = new CrudArtist(database);
         CrudPlaylist crudPlaylist = new CrudPlaylist(database);
+        CrudAlbum crudAlbum = new CrudAlbum(database);
 
         try {
             List<Music> musics = crudMusic.search(searchedExpression);
             List<Artist> artists = crudArtist.search(searchedExpression);
             List<Playlist> playlists = crudPlaylist.search(searchedExpression);
+            List<Album> albums = crudAlbum.search(searchedExpression);
 
             HashMap<String, Object> jsonMap = new HashMap<>();
             jsonMap.put("musics", musics);
             jsonMap.put("artists", artists);
             jsonMap.put("playlists", playlists);
+            jsonMap.put("albums", albums);
 
             response.setJson(gson.toJson(jsonMap));
             response.setMessage("Search result");
@@ -586,8 +587,8 @@ public class Session implements Runnable{
 
         Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap<String, Object> map = gson.fromJson(json, type);
-        int userId = (Integer) map.get("userId");
-        int artistId = (Integer) map.get("artistId");
+        int userId = ((Double) map.get("userId")).intValue();
+        int artistId = ((Double) map.get("artistId")).intValue();
         CrudUser crudUser = new CrudUser(database);
 
         try{
@@ -609,8 +610,8 @@ public class Session implements Runnable{
 
         Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap<String, Object> map = gson.fromJson(json, type);
-        int userId = (Integer) map.get("userId");
-        int artistId = (Integer) map.get("artistId");
+        int userId = ((Double) map.get("userId")).intValue();
+        int artistId = ((Double) map.get("artistId")).intValue();
         CrudUser crudUser = new CrudUser(database);
 
         try{
@@ -634,7 +635,8 @@ public class Session implements Runnable{
         CrudUser crudUser = new CrudUser(database);
 
         try{
-            crudUser.getFollowings(userId);
+            List<Artist> artists = crudUser.getFollowings(userId);
+            response.setJson(new Gson().toJson(artists));
             response.setMessage("Followings!");
             response.setStatusCode(200);
         } catch (SQLException e) {
@@ -652,8 +654,8 @@ public class Session implements Runnable{
 
         Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap<String, Object> map = gson.fromJson(json, type);
-        int userId = (Integer) map.get("userId");
-        int musicId = (Integer) map.get("musicId");
+        int userId = ((Double) map.get("userId")).intValue();
+        int musicId = ((Double) map.get("musicId")).intValue();
         CrudUser crudUser = new CrudUser(database);
 
         try{
@@ -675,8 +677,8 @@ public class Session implements Runnable{
 
         Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap<String, Object> map = gson.fromJson(json, type);
-        int userId = (Integer) map.get("userId");
-        int musicId = (Integer) map.get("musicId");
+        int userId = ((Double) map.get("userId")).intValue();
+        int musicId = ((Double) map.get("musicId")).intValue();
         CrudUser crudUser = new CrudUser(database);
 
         try{
@@ -686,6 +688,30 @@ public class Session implements Runnable{
         } catch (SQLException e) {
             e.printStackTrace();
             response.setMessage("Error in unliking the music!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response isLiked(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+        HashMap<String, Object> map = gson.fromJson(json, type);
+        int userId = ((Double) map.get("userId")).intValue();
+        int musicId = ((Double) map.get("musicId")).intValue();
+        CrudUser crudUser = new CrudUser(database);
+
+        try{
+            Boolean res = crudUser.isLiked(userId, musicId);
+            response.setJson(new Gson().toJson(res));
+            response.setMessage("Like status: " + res);
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the like!");
             response.setStatusCode(400);
         }
 
@@ -873,6 +899,131 @@ public class Session implements Runnable{
         }
         return response;
     }
+    public Response downloadMusic(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        String musicName = new Gson().fromJson(json, String.class);
+
+        File selectedFile = new File("src/main/resources/com/ap/spotify/cloud/" + musicName);
+
+        FileInputStream fileInputStream = null;
+        try {
+            fileInputStream = new FileInputStream(selectedFile);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+
+            byte[] bytes = new byte[(int) selectedFile.length()];
+            bufferedInputStream.read(bytes, 0, bytes.length);
+
+            response.setJson(new Gson().toJson(bytes));
+            response.setMessage("Music is downloaded!");
+            response.setStatusCode(200);
+            CrudMusic crudMusic = new CrudMusic(database);
+            crudMusic.increasePopularityOfMusic(crudMusic.getMusicByFileName(musicName).getId());
+        } catch (IOException e) {
+            response.setStatusCode(400);
+            response.setMessage("Error while downloading the music!");
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return response;
+    }
+    public Response getLikedMusics(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int userId = gson.fromJson(json, Integer.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try{
+            List<Music> musics = crudMusic.getLikedMusicsOfUser(userId);
+            response.setJson(gson.toJson(musics));
+            response.setMessage("Musics!");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the musics!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response getArtistFollowerCount(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        int artistId = gson.fromJson(json, Integer.class);
+        CrudArtist crudArtist = new CrudArtist(database);
+
+        try{
+            int followers = crudArtist.getFollowersCount(artistId);
+            response.setJson(new Gson().toJson(followers));
+            response.setMessage("followers!");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the followers!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response isFollowing(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
+        HashMap<String, Object> map = gson.fromJson(json, type);
+        int userId = ((Double) map.get("userId")).intValue();
+        int artistId = ((Double) map.get("artistId")).intValue();
+        CrudUser crudUser = new CrudUser(database);
+
+        try{
+            Boolean isFollowing = crudUser.isFollowing(userId, artistId);
+            response.setJson(new Gson().toJson(isFollowing));
+            response.setMessage("Friend removed!");
+            response.setStatusCode(201);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in removing the friend!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response logout(){
+        isLoggedIn = false;
+        loggedInAccount = null;
+        role = "";
+
+        Response response = new Response();
+        response.setMessage("Logout!");
+        response.setStatusCode(200);
+
+        return response;
+    }
+    public Response getMusicByName(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        String fileName = gson.fromJson(json, String.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try{
+            Music music = crudMusic.getMusicByName(fileName);
+            response.setJson(new Gson().toJson(music));
+            response.setMessage("Music!");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the music!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
     public String createRandomString(){
         int length = 10;
 
@@ -909,7 +1060,7 @@ public class Session implements Runnable{
             response = createNewComment(request);
         }
         else if (command.equals("downloadMusic")) {
-            // TODO: good luck with this section :|
+            response = downloadMusic(request);
         }
         else if (command.equals("viewMusic")) {
             response = viewMusic(request);
@@ -935,6 +1086,12 @@ public class Session implements Runnable{
         else if(command.equals("removeLikeMusic")){
             response = unlikeMusic(request);
         }
+        else if(command.equals("isLiked")){
+            response = isLiked(request);
+        }
+        else if(command.equals("getLikedMusics")){
+            response = getLikedMusics(request);
+        }
         else if (command.equals("viewArtist")) {
             response = viewArtist(request);
         }
@@ -959,14 +1116,32 @@ public class Session implements Runnable{
         else if (command.equals("unfollowArtist")) {
             response = unfollowArtist(request);
         }
+        else if (command.equals("isFollowing")) {
+            response = isFollowing(request);
+        }
         else if (command.equals("getFollowingsOfUser")) {
             response = getFollowings(request);
+        }
+        else if (command.equals("getArtistFollowerCount")) {
+            response = getArtistFollowerCount(request);
         }
         else if (command.equals("addFriend")) {
             response = addFriend(request);
         }
         else if (command.equals("removeFriend")) {
             response = removeFriend(request);
+        }
+        else if (command.equals("getArtistMusics")) {
+            response = getArtistMusics(request);
+        }
+        else if (command.equals("getMusicByName")) {
+            response = getMusicByName(request);
+        }
+        else if(command.equals("uploadCoverPic")){
+            response = uploadCoverPic(request);
+        }
+        else if(command.equals("logout")){
+            response = logout();
         }
 
         return response;

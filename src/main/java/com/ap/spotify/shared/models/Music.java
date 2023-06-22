@@ -95,6 +95,15 @@ public class Music {
     private int album;
     private int genre;
     private String musicFilePath;
+    private Artist artistObj;
+
+    public Artist getArtistObj() {
+        return artistObj;
+    }
+
+    public void setArtistObj(Artist artistObj) {
+        this.artistObj = artistObj;
+    }
 
     public String getMusicFilePath() {
         return musicFilePath;

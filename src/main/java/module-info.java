@@ -3,7 +3,7 @@ module com.ap.spotify {
     requires javafx.fxml;
     requires java.sql;
     requires com.google.gson;
-
+    requires javafx.media;
 
     opens com.ap.spotify to javafx.fxml;
     exports com.ap.spotify;

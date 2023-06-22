@@ -53,6 +53,10 @@ public class CrudMusic {
             music.setGenre(res.getInt("genre"));
             music.setReleaseDate(res.getDate("release_date"));
             music.setMusicFilePath(res.getString("music_file_path"));
+
+            CrudArtist crudArtist = new CrudArtist(database);
+            music.setArtistObj(crudArtist.getArtistById(music.getArtist()));
+
             return music;
         }
 
@@ -193,5 +197,86 @@ public class CrudMusic {
         }
 
         return 0;
+    }
+
+    public List<Music> getLikedMusicsOfUser(int userId) throws SQLException {
+        String query = "SELECT *" +
+                " FROM musics" +
+                " JOIN like_link ON musics.id = like_link.music_id" +
+                " JOIN users ON users.id = like_link.user_id" +
+                " WHERE users.id = ?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1,userId);
+
+        ResultSet res = statement.executeQuery();
+        List<Music> musics = new ArrayList<>();
+
+        while(res.next()){
+            Music music = new Music();
+            music.setId(res.getInt("id"));
+            music.setTitle(res.getString("title"));
+            music.setDuration(res.getInt("duration"));
+            music.setArtist(res.getInt("artist"));
+            music.setCoverPicPath(res.getString("cover_pic_path"));
+            music.setLyricsFilePath(res.getString("lyrics_file_path"));
+            music.setPopularity(res.getInt("popularity"));
+            music.setGenre(res.getInt("genre"));
+            music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+
+            musics.add(music);
+        }
+
+        return musics;
+    }
+
+    public Music getMusicByName(String Name) throws SQLException {
+        String query = "SELECT * FROM musics WHERE title=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, Name);
+
+        ResultSet res = statement.executeQuery();
+        Music music = new Music();
+
+        if (res.next()){
+            music.setId(res.getInt("id"));
+            music.setTitle(res.getString("title"));
+            music.setDuration(res.getInt("duration"));
+            music.setArtist(res.getInt("artist"));
+            music.setCoverPicPath(res.getString("cover_pic_path"));
+            music.setLyricsFilePath(res.getString("lyrics_file_path"));
+            music.setPopularity(res.getInt("popularity"));
+            music.setGenre(res.getInt("genre"));
+            music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+        }
+
+        return music;
+    }
+    public Music getMusicByFileName(String Name) throws SQLException {
+        String query = "SELECT * FROM musics WHERE music_file_path=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setString(1, Name);
+
+        ResultSet res = statement.executeQuery();
+        Music music = new Music();
+
+        if (res.next()){
+            music.setId(res.getInt("id"));
+            music.setTitle(res.getString("title"));
+            music.setDuration(res.getInt("duration"));
+            music.setArtist(res.getInt("artist"));
+            music.setCoverPicPath(res.getString("cover_pic_path"));
+            music.setLyricsFilePath(res.getString("lyrics_file_path"));
+            music.setPopularity(res.getInt("popularity"));
+            music.setGenre(res.getInt("genre"));
+            music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+        }
+
+        return music;
     }
 }

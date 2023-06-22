@@ -26,7 +26,7 @@ public class SignUp {
     @FXML
     Label label;
 
-    public void signUp(ActionEvent e) throws IOException, ClassNotFoundException {
+    public void signUp(ActionEvent e){
         String username = usernameTxt.getText();
         String password = passwordTxt.getText();
 
@@ -47,11 +47,15 @@ public class SignUp {
             artist.setPassword(password);
             request.setJson(gson.toJson(artist));
         }
-        
-        StaticData.objOut.writeObject(request);
-        StaticData.objOut.flush();
 
-        Response response = (Response) StaticData.objIn.readObject();
-        label.setText(response.getMessage());
+        try {
+            StaticData.objOut.writeObject(request);
+            StaticData.objOut.flush();
+
+            Response response = (Response) StaticData.objIn.readObject();
+            label.setText(response.getMessage());
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
