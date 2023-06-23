@@ -2,41 +2,93 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane minWidth="-Infinity" prefHeight="443.0" prefWidth="707.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
+<AnchorPane minWidth="-Infinity" prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
    <children>
-      <Text fill="#1db853" layoutX="204.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sign Up" textAlignment="CENTER" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="203.78076171875" AnchorPane.topAnchor="39.0">
+      <PasswordField fx:id="passwordTxt" alignment="CENTER" layoutX="440.0" layoutY="242.0" prefHeight="45.0" prefWidth="299.0" promptText="Password" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="38.0">
          <font>
-            <Font name="Hack Bold" size="71.0" />
+            <Font size="19.0" />
          </font>
-      </Text>
-      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="198.0" layoutY="161.0" prefHeight="60.0" prefWidth="300.0" promptText="Username" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="209.0">
+      </PasswordField>
+      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="440.0" layoutY="176.0" prefHeight="45.0" prefWidth="299.0" promptText="Username" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="38.0">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordTxt" alignment="CENTER" layoutX="198.0" layoutY="229.0" prefHeight="59.0" prefWidth="300.0" promptText="Password" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="209.0">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </TextField>
-      <Button layoutX="198.0" layoutY="358.0" mnemonicParsing="false" onAction="#signUp" prefHeight="40.0" prefWidth="300.0" style="-fx-border-color: #1DB954; -fx-background-color: transparent; -fx-border-width: 4;" text="Sign Up" textFill="WHITE">
+      <Button layoutX="357.0" layoutY="422.0" mnemonicParsing="false" onAction="#signUp" prefHeight="39.0" prefWidth="350.0" style="-fx-border-color: #1DB954; -fx-background-color: #1DB954; -fx-border-radius: 20; -fx-background-radius: 20;" text="Sign Up" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
       <Label fx:id="label" alignment="CENTER" layoutX="242.0" layoutY="328.0" prefHeight="21.0" prefWidth="299.0" textFill="WHITE" />
-      <RadioButton fx:id="userRB" layoutX="198.0" layoutY="296.0" mnemonicParsing="false" text="User" textFill="WHITE">
+      <RadioButton fx:id="userRB" layoutX="456.0" layoutY="322.0" mnemonicParsing="false" text="User" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="role" />
          </toggleGroup>
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
       </RadioButton>
-      <RadioButton fx:id="artistRB" layoutX="268.0" layoutY="296.0" mnemonicParsing="false" text="Artist" textFill="WHITE" toggleGroup="$role" />
+      <RadioButton fx:id="artistRB" layoutX="452.0" layoutY="359.0" mnemonicParsing="false" text="Artist" textFill="WHITE" toggleGroup="$role">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font></RadioButton>
+      <AnchorPane prefHeight="550.0" prefWidth="300.0" style="-fx-background-color: #1DD563;">
+         <children>
+            <Label layoutX="38.0" layoutY="220.0" text="Spotify" textFill="#020202">
+               <font>
+                  <Font name="System Bold Italic" size="56.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="150.0" fitWidth="200.0" layoutX="51.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="323.0" layoutY="188.0" text="Username" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="357.0" layoutY="473.0" mnemonicParsing="false" onAction="#signUp" prefHeight="39.0" prefWidth="350.0" style="-fx-border-color: #1DB954; -fx-background-color: transparent; -fx-border-width: 4; -fx-border-radius: 20; -fx-background-radius: 20;" text="Back" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="326.0" layoutY="254.0" text="Password" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="360.0" layoutY="50.0" prefHeight="84.0" prefWidth="331.0" text="Sign Up" textFill="WHITE">
+         <font>
+            <Font size="54.0" />
+         </font>
+      </Label>
+      <Label layoutX="344.0" layoutY="332.0" text="I'm a..." textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="411.0" text="ph: +1 530 362 9334">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="452.0" text="e: spotify@gmail.com">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="74.0" layoutY="493.0" text="w: spotify.com">
+         <font>
+            <Font name="System Bold Italic" size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

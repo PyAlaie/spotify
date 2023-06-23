@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="497.0" prefWidth="711.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.PlaylistView">
    <children>
-      <Label fx:id="playlistName" alignment="CENTER" layoutX="70.0" layoutY="25.0" prefHeight="47.0" prefWidth="565.0" text="Playlist name" textAlignment="CENTER" textFill="#1db954" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="25.0">
+      <Label fx:id="playlistName" alignment="CENTER" layoutX="70.0" layoutY="17.0" prefHeight="47.0" prefWidth="565.0" text="Playlist name" textAlignment="CENTER" textFill="#1db954" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="17.0">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <ListView fx:id="playlistMusics" layoutX="70.0" layoutY="88.0" prefHeight="384.0" prefWidth="623.0" style="-fx-background-color: #535353; -fx-font-size: 22 px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0" />
+      <VBox fx:id="playlistMusics" layoutX="269.0" layoutY="125.0" prefHeight="372.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
+      <Button layoutX="297.0" layoutY="71.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" style="-fx-background-color: #1db954;" text="Play" textFill="WHITE">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

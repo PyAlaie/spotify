@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
@@ -53,12 +54,13 @@ public class Home implements Initializable {
                         e.printStackTrace();
                     }
                 }
-                musicCover.setFitHeight(100);
+                musicCover.setFitHeight(110);
                 musicCover.setPreserveRatio(false);
-                musicCover.setFitWidth(120);
-                musicCover.setFitHeight(120);
+                musicCover.setFitWidth(130);
+                musicCover.setFitHeight(130);
 
                 Label title = new Label(music.getTitle());
+                title.setPrefWidth(Double.MAX_VALUE);
                 title.setFont(new Font(18));
                 title.setBackground(Background.fill(Color.BLACK));
                 title.setTextFill(Paint.valueOf(String.valueOf(Color.WHITE)));
@@ -67,7 +69,7 @@ public class Home implements Initializable {
                 AnchorPane.setLeftAnchor(title,0.0);
                 title.setAlignment(Pos.CENTER);
 
-                AnchorPane musicPane = new AnchorPane();
+                VBox musicPane = new VBox();
                 musicPane.getChildren().add(musicCover);
                 musicPane.getChildren().add(title);
 

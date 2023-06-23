@@ -149,7 +149,7 @@ public class CrudUser {
             Artist artist = new Artist();
             artist.setUsername(res.getString("username"));
             artist.setPassword(res.getString("password"));
-            artist.setId(res.getInt("id"));
+            artist.setId(res.getInt("artist_id"));
             artist.setBiography(res.getString("biography"));
             artist.setProfilePicPath(res.getString("profile_pic_path"));
             artist.setGenre(res.getInt("genre"));
@@ -224,7 +224,6 @@ public class CrudUser {
 
             statement.executeUpdate();
         }
-        //TODO: not sure if the function works, did not test :|
     }
 
     public void removeFriend(int userId, int friendId) throws SQLException {

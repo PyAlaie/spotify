@@ -6,6 +6,7 @@ import com.ap.spotify.shared.models.Playlist;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -16,11 +17,16 @@ public class PlaylistAdd {
     TextField titleTxt;
     @FXML
     TextArea descriptionTxt;
+    @FXML
+    RadioButton publicBtn, privateBtn;
     public void save(){
         Playlist playlist = new Playlist();
         playlist.setTitle(titleTxt.getText());
         playlist.setDescription(descriptionTxt.getText());
         playlist.setUser(StaticData.loggedInAccount.getId());
+        if (publicBtn.isSelected()){
+            playlist.setPublic(true);
+        }
 
         Request request = new Request("newPlaylist");
         request.setJson(new Gson().toJson(playlist));

@@ -5,6 +5,15 @@ public class Playlist {
     private String title;
     private String description;
     private int user;
+    private boolean isPublic = false;
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
 
     public int getId() {
         return id;

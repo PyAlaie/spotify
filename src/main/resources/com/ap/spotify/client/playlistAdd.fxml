@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="434.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.PlaylistAdd">
    <children>
-      <TextField fx:id="titleTxt" layoutX="100.0" layoutY="41.0" prefHeight="51.0" prefWidth="450.0" promptText="Title">
+      <TextField fx:id="titleTxt" layoutX="100.0" layoutY="32.0" prefHeight="51.0" prefWidth="450.0" promptText="Title">
          <font>
             <Font size="23.0" />
          </font>
       </TextField>
-      <TextArea fx:id="descriptionTxt" layoutX="100.0" layoutY="100.0" prefHeight="215.0" prefWidth="451.0" promptText="Description">
+      <TextArea fx:id="descriptionTxt" layoutX="100.0" layoutY="90.0" prefHeight="187.0" prefWidth="451.0" promptText="Description">
          <font>
             <Font size="16.0" />
          </font>
@@ -24,5 +25,11 @@
             <Font size="19.0" />
          </font>
       </Button>
+      <RadioButton fx:id="publicBtn" layoutX="100.0" layoutY="283.0" mnemonicParsing="false" text="public">
+         <toggleGroup>
+            <ToggleGroup fx:id="visibility" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="privateBtn" layoutX="171.0" layoutY="283.0" mnemonicParsing="false" selected="true" text="private" toggleGroup="$visibility" />
    </children>
 </AnchorPane>

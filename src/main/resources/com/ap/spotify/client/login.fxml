@@ -2,38 +2,78 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="438.0" prefWidth="777.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Login">
+<AnchorPane prefHeight="541.0" prefWidth="752.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Login">
    <children>
-      <Text fill="#1db853" layoutX="239.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spotify" textAlignment="CENTER" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="239.24150205701278" AnchorPane.topAnchor="39.09619140625">
+      <PasswordField fx:id="passwordTxt" alignment="CENTER" layoutX="448.0" layoutY="247.0" prefHeight="45.0" prefWidth="299.0" promptText="Password" AnchorPane.leftAnchor="448.0" AnchorPane.rightAnchor="30.0">
          <font>
-            <Font name="Hack Bold" size="71.0" />
+            <Font size="19.0" />
          </font>
-      </Text>
-      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="239.00000000000006" layoutY="162.0" prefHeight="58.0" prefWidth="299.0" promptText="Username" AnchorPane.leftAnchor="239.00000000000006" AnchorPane.rightAnchor="238.75645714276845">
+      </PasswordField>
+      <Label layoutX="334.0" layoutY="259.0" text="Password" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="447.0" layoutY="183.0" prefHeight="45.0" prefWidth="299.0" promptText="Username" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="31.0">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordTxt" alignment="CENTER" layoutX="239.00000000000006" layoutY="229.0" prefHeight="58.0" prefWidth="299.0" promptText="Password" AnchorPane.leftAnchor="239.00000000000006" AnchorPane.rightAnchor="238.75645714276845">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </TextField>
-      <Button layoutX="393.0" layoutY="341.0" mnemonicParsing="false" onAction="#signUp" prefHeight="33.0" prefWidth="145.0" style="-fx-border-color: #1DB954; -fx-background-color: transparent; -fx-border-width: 4;" text="Sign Up" textFill="WHITE">
+      <Button layoutX="365.0" layoutY="463.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="350.0" style="-fx-border-color: #1DB954; -fx-background-color: transparent; -fx-border-width: 4; -fx-background-radius: 20; -fx-border-radius: 20;" text="Sign Up" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="239.0" layoutY="341.0" mnemonicParsing="false" onAction="#login" prefHeight="33.0" prefWidth="145.0" style="-fx-border-color: #1DB954; -fx-background-color: #1DB954; -fx-border-width: 4; -fx-border-radius: 7;" text="Login" textFill="WHITE">
+      <Button layoutX="365.0" layoutY="413.0" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="350.0" style="-fx-border-color: #1DB954; -fx-background-color: #1DB954; -fx-border-width: 4; -fx-border-radius: 20; -fx-background-radius: 20;" text="Login" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="label" alignment="CENTER" layoutX="243.0" layoutY="297.0" prefHeight="18.0" prefWidth="299.0" text="login please" textFill="WHITE" />
+      <Label fx:id="label" alignment="CENTER" layoutX="345.0" layoutY="333.0" prefHeight="25.0" prefWidth="390.0" text="login please" textFill="#4acf82">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="331.0" layoutY="195.0" text="Username" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="389.0" layoutY="44.0" prefHeight="104.0" prefWidth="275.0" text="login" textFill="WHITE">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <AnchorPane layoutY="-2.0" prefHeight="563.0" prefWidth="302.0" style="-fx-background-color: #1DD563;">
+         <children>
+            <Label layoutX="49.0" layoutY="225.0" text="Spotify" textFill="#020202">
+               <font>
+                  <Font name="System Bold Italic" size="50.0" />
+               </font>
+            </Label>
+            <Label layoutX="29.0" layoutY="405.0" text="ph: +1 530 362 9334">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="28.0" layoutY="446.0" text="e: spotify@gmail.com">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="62.0" layoutY="487.0" text="w: spotify.com">
+               <font>
+                  <Font name="System Bold Italic" size="20.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="170.0" fitWidth="244.0" layoutX="28.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

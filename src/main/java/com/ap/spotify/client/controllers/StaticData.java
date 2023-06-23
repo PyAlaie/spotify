@@ -8,6 +8,8 @@ import com.ap.spotify.shared.models.User;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StaticData {
     public static Socket socket;
@@ -22,4 +24,5 @@ public class StaticData {
     public static Music musicToEdit;
     public static String musicToPlay;
     public static Artist artistToView;
+    public static ArrayList<String> musicsList;
 }

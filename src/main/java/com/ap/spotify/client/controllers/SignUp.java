@@ -1,5 +1,6 @@
 package com.ap.spotify.client.controllers;
 
+import com.ap.spotify.Test;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Account;
@@ -8,13 +9,19 @@ import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class SignUp {
+public class SignUp implements Initializable {
     @FXML
     RadioButton userRB;
     @FXML
@@ -22,9 +29,11 @@ public class SignUp {
     @FXML
     TextField usernameTxt;
     @FXML
-    TextField passwordTxt;
+    PasswordField passwordTxt;
     @FXML
     Label label;
+    @FXML
+    ImageView logo;
 
     public void signUp(ActionEvent e){
         String username = usernameTxt.getText();
@@ -57,5 +66,11 @@ public class SignUp {
         } catch (IOException | ClassNotFoundException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Image image = new Image(Test.class.getResource("cloud/logo.jpg").toExternalForm());
+        logo.setImage(image);
     }
 }

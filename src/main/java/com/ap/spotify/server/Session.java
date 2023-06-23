@@ -541,8 +541,8 @@ public class Session implements Runnable{
 
         Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
         HashMap<String, Object> map = gson.fromJson(json, type);
-        int musicId = (Integer) map.get("musicId");
-        int playlistId = (Integer) map.get("playlistId");
+        int musicId = ((Double) map.get("musicId")).intValue();
+        int playlistId = ((Double) map.get("playlistId")).intValue();
         CrudPlaylist crudPlaylist = new CrudPlaylist(database);
 
         try{
@@ -1094,9 +1094,6 @@ public class Session implements Runnable{
         }
         else if (command.equals("viewArtist")) {
             response = viewArtist(request);
-        }
-        else if (command.equals("showTimeline")) {
-            // TODO: create table
         }
         else if (command.equals("search")) {
             response = search(request);

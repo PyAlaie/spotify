@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -51,22 +52,6 @@ public class MusicPlayer implements Initializable {
     Media sound;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        String directoryPath = "src/main/resources/com/ap/spotify/downloads";
-        File directory = new File(directoryPath);
-        File[] files = directory.listFiles();
-        assert files != null;
-        for (File file : files) {
-            if (file.isFile()) {
-                musics.add(file.getName());
-            }
-        }
-
-        songIndex = musics.indexOf(StaticData.musicToPlay);
-
-        String musicFile = "src/main/resources/com/ap/spotify/downloads/" + StaticData.musicToPlay;
-        sound = new Media(new File(musicFile).toURI().toString());
-        mediaPlayer = new MediaPlayer(sound);
-
         Request request = new Request("getMusicByName");
         request.setJson(new Gson().toJson(StaticData.musicToPlay.split("\\.")[0]));
 
@@ -80,6 +65,21 @@ public class MusicPlayer implements Initializable {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+
+        musics = StaticData.musicsList;
+
+        songIndex = musics.indexOf(StaticData.musicToPlay);
+
+        try {
+            String musicFile = "src/main/resources/com/ap/spotify/downloads/" + StaticData.musicToPlay;
+            sound = new Media(new File(musicFile).toURI().toString());
+        }
+        catch (Exception e){
+            download();
+            String musicFile = "src/main/resources/com/ap/spotify/downloads/" + StaticData.musicToPlay;
+            sound = new Media(new File(musicFile).toURI().toString());
+        }
+        mediaPlayer = new MediaPlayer(sound);
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -116,8 +116,29 @@ public class MusicPlayer implements Initializable {
                 cancelTimer();
             }
 
-            String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
-            sound = new Media(new File(musicFile).toURI().toString());
+            Request request = new Request("getMusicByName");
+            request.setJson(new Gson().toJson(musics.get(songIndex).split("\\.")[0]));
+
+            try {
+                StaticData.objOut.writeObject(request);
+                StaticData.objOut.flush();
+
+                Response response = (Response) StaticData.objIn.readObject();
+                System.out.println("test" + response.getMessage());
+                music = new Gson().fromJson(response.getJson(), Music.class);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
+                sound = new Media(new File(musicFile).toURI().toString());
+            }
+            catch (Exception e){
+                download();
+                String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
+                sound = new Media(new File(musicFile).toURI().toString());
+            }
             mediaPlayer = new MediaPlayer(sound);
 
             musicTitleLbl.setText(musics.get(songIndex));
@@ -126,11 +147,8 @@ public class MusicPlayer implements Initializable {
         }
         else {
             songIndex = musics.size() - 1;
-
             mediaPlayer.stop();
-
             if(running) {
-
                 cancelTimer();
             }
 
@@ -147,29 +165,51 @@ public class MusicPlayer implements Initializable {
     public void nextMedia() {
         if(songIndex < musics.size() - 1) {
             songIndex++;
-
             mediaPlayer.stop();
-
             if(running) {
-
                 cancelTimer();
             }
 
-            String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
-            sound = new Media(new File(musicFile).toURI().toString());
+            Request request = new Request("getMusicByName");
+            request.setJson(new Gson().toJson(musics.get(songIndex).split("\\.")[0]));
+
+            try {
+                StaticData.objOut.writeObject(request);
+                StaticData.objOut.flush();
+
+                Response response = (Response) StaticData.objIn.readObject();
+                System.out.println("test" + response.getMessage());
+                music = new Gson().fromJson(response.getJson(), Music.class);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            try {
+                String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
+                sound = new Media(new File(musicFile).toURI().toString());
+            }
+            catch (Exception e){
+                download();
+                String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
+                sound = new Media(new File(musicFile).toURI().toString());
+            }
             mediaPlayer = new MediaPlayer(sound);
+
             musicTitleLbl.setText(musics.get(songIndex));
 
             playMedia();
         }
         else {
             songIndex = 0;
-
             mediaPlayer.stop();
+            if(running) {
+                cancelTimer();
+            }
 
             String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
             sound = new Media(new File(musicFile).toURI().toString());
             mediaPlayer = new MediaPlayer(sound);
+
             musicTitleLbl.setText(musics.get(songIndex));
 
             playMedia();
@@ -215,6 +255,44 @@ public class MusicPlayer implements Initializable {
         }
         else {
             mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01);
+        }
+    }
+
+    public void download(){
+        String directoryPath = "src/main/resources/com/ap/spotify/downloads";
+        File directory = new File(directoryPath);
+        File[] files = directory.listFiles();
+        assert files != null;
+        for (File file : files) {
+            if (file.isFile() && (music.getTitle()+".mp3").equals(file.getName())) {
+                System.out.println("Music is already downloaded!");
+                return;
+            }
+        }
+
+        Request request = new Request("downloadMusic");
+        request.setJson(new Gson().toJson(music.getMusicFilePath()));
+
+        try {
+            StaticData.objOut.writeObject(request);
+            StaticData.objOut.flush();
+
+            Response response = (Response) StaticData.objIn.readObject();
+            System.out.println(response.getMessage());
+
+            byte[] bytes = new Gson().fromJson(response.getJson(), byte[].class);
+
+            File file = new File( "src/main/resources/com/ap/spotify/downloads/" + music.getTitle() + ".mp3");
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bytes);
+                fos.close();
+                System.out.println("downloaded music successfully");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException | ClassNotFoundException exception) {
+            throw new RuntimeException(exception);
         }
     }
 }

@@ -3,26 +3,28 @@ package com.ap.spotify.client.controllers;
 import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
-import com.ap.spotify.shared.models.Comment;
 import com.ap.spotify.shared.models.Music;
 import com.ap.spotify.shared.models.Playlist;
 import com.google.gson.Gson;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -31,8 +33,9 @@ public class PlaylistView implements Initializable {
     @FXML
     Label playlistName;
     @FXML
-    ListView<Button> playlistMusics;
+    VBox playlistMusics;
     Playlist playlist;
+    ArrayList<String> musicsList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,6 +64,7 @@ public class PlaylistView implements Initializable {
                 for(int i = 0; i < musics.size(); i++){
                     Music music = new Gson().fromJson(new Gson().toJson(musics.get(i)), Music.class);
 
+                    musicsList.add(music.getTitle() + ".mp3");
                     String title = Integer.toString(i)+". ";
                     title += music.getTitle() + ", " + music.getPopularity();
 
@@ -69,17 +73,18 @@ public class PlaylistView implements Initializable {
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent event) {
-                            StaticData.musicToOpenId = music.getId();
+
+                            StaticData.musicToPlay = music.getTitle() + ".mp3";
+                            StaticData.musicsList = musicsList;
 
                             try {
-                                openStage("musicView.fxml");
+                                openStage("musicPlayer.fxml");
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
                         }
                     });
-
-                    playlistMusics.getItems().add(button);
+                    playlistMusics.getChildren().add(button);
 
                 }
             }
@@ -93,5 +98,10 @@ public class PlaylistView implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();
+    }
+    public void closeWindow(ActionEvent actionEvent){
+        Node source = (Node)  actionEvent.getSource();
+        Stage stage  = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

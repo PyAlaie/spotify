@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="546.0" prefWidth="713.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicView">
@@ -17,7 +18,7 @@
             <Font size="50.0" />
          </font>
       </Label>
-      <Label fx:id="artist" layoutX="242.0" layoutY="108.0" prefHeight="26.0" prefWidth="299.0" text="Artist: " textFill="WHITE" AnchorPane.leftAnchor="242.0">
+      <Label fx:id="artist" layoutX="244.0" layoutY="108.0" prefHeight="26.0" prefWidth="299.0" text="Artist: " textFill="WHITE" AnchorPane.leftAnchor="244.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -27,31 +28,32 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="date" layoutX="239.0" layoutY="173.0" prefHeight="27.0" prefWidth="279.0" text="Release date:" textFill="WHITE" AnchorPane.leftAnchor="239.0">
+      <Label fx:id="date" layoutX="243.0" layoutY="173.0" prefHeight="27.0" prefWidth="279.0" text="Release date:" textFill="WHITE" AnchorPane.leftAnchor="243.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="popularity" layoutX="239.0" layoutY="208.0" prefHeight="26.0" prefWidth="280.0" text="Popularity:" textFill="WHITE" AnchorPane.leftAnchor="239.0">
+      <Label fx:id="popularity" layoutX="243.0" layoutY="208.0" prefHeight="26.0" prefWidth="280.0" text="Popularity:" textFill="WHITE" AnchorPane.leftAnchor="243.0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
       <ListView fx:id="commentsListView" layoutX="39.0" layoutY="262.0" prefHeight="222.0" prefWidth="381.0" AnchorPane.bottomAnchor="61.21981615801576" AnchorPane.leftAnchor="39.0" />
-      <Button layoutX="458.0" layoutY="413.0" mnemonicParsing="false" onAction="#download" style="-fx-background-color: #1db954; -fx-text-fill: white;" text="Download" AnchorPane.bottomAnchor="36.09561510012344" AnchorPane.rightAnchor="45.20700176315381">
+      <Button layoutX="441.0" layoutY="422.0" mnemonicParsing="false" onAction="#play" prefHeight="75.0" prefWidth="136.0" style="-fx-background-color: #1db954; -fx-text-fill: white;" text="Play" AnchorPane.bottomAnchor="27.0" AnchorPane.rightAnchor="139.0">
          <font>
-            <Font size="30.0" />
+            <Font size="27.0" />
          </font>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
       </Button>
       <TextField fx:id="commentTxt" layoutX="39.0" layoutY="489.0" prefHeight="30.0" prefWidth="277.0" AnchorPane.bottomAnchor="26.030557403132207" AnchorPane.leftAnchor="39.0" />
       <Button fx:id="newCommentBtn" layoutX="319.0" layoutY="488.0" mnemonicParsing="false" onAction="#newComment" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #1db954; -fx-text-fill: white;" text="Comment" AnchorPane.bottomAnchor="27.030557403132207" />
-      <Button fx:id="likeBtn" layoutX="458.0" layoutY="351.0" mnemonicParsing="false" onAction="#likeAndDislike" prefHeight="51.0" prefWidth="89.0" style="-fx-background-color: #0775C7;" text="Like" textFill="WHITE">
+      <Button fx:id="likeBtn" layoutX="438.0" layoutY="396.0" mnemonicParsing="false" onAction="#likeAndDislike" prefHeight="37.0" prefWidth="89.0" style="-fx-background-color: #0775C7;" text="Like" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
+      <VBox fx:id="addToPlaylistVbox" layoutX="541.0" layoutY="187.0" prefHeight="223.0" prefWidth="135.0" />
    </children>
 </AnchorPane>

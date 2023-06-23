@@ -1,7 +1,6 @@
 package com.ap.spotify.shared.crudFiles;
 
 import com.ap.spotify.server.Database;
-import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.Music;
 import com.ap.spotify.shared.models.Playlist;
 
@@ -19,13 +18,14 @@ public class CrudPlaylist {
     }
 
     public void newPlaylist(Playlist playlist) throws SQLException {
-        String query = "INSERT INTO playlists (title, \"user\", description)" +
-                "VALUES (?,?,?)";
+        String query = "INSERT INTO playlists (title, \"user\", description, is_public)" +
+                "VALUES (?,?,?,?)";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setString(1, playlist.getTitle());
         statement.setInt(2, playlist.getUser());
         statement.setString(3, playlist.getDescription());
+        statement.setBoolean(4, playlist.isPublic());
 
         statement.executeUpdate();
     }
@@ -45,6 +45,7 @@ public class CrudPlaylist {
             playlist.setTitle(res.getString("title"));
             playlist.setUser(res.getInt("user"));
             playlist.setDescription(res.getString("description"));
+            playlist.setPublic(res.getBoolean("is_public"));
             playlists.add(playlist);
         }
 
@@ -102,17 +103,20 @@ public class CrudPlaylist {
     }
 
     public void addMusicToPlaylist(int musicId, int playlistId) throws SQLException {
-        String query = "INSERT INTO playlist_music_link (music_id, playlist_id) VALUES (?,?)";
+        boolean shouldAdd = !doesMusicExistInPlaylist(playlistId, musicId);
+        if(shouldAdd){
+            String query = "INSERT INTO playlist_music_link (music, playlist) VALUES (?,?)";
 
-        PreparedStatement statement = database.getConnection().prepareStatement(query);
-        statement.setInt(1, musicId);
-        statement.setInt(2, playlistId);
+            PreparedStatement statement = database.getConnection().prepareStatement(query);
+            statement.setInt(1, musicId);
+            statement.setInt(2, playlistId);
 
-        statement.executeUpdate();
+            statement.executeUpdate();
+        }
     }
 
     public void removeMusicFromPlaylist(int musicId, int playlistId) throws SQLException {
-        String query = "DELETE FROM playlist_music_link WHERE music_id=? AND playlist_id=?";
+        String query = "DELETE FROM playlist_music_link WHERE music=? AND playlist=?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setInt(1, musicId);
@@ -142,5 +146,43 @@ public class CrudPlaylist {
         }
 
         return playlists;
+    }
+
+    public List<Playlist> getPublicPlaylists() throws SQLException {
+        String query = "SELECT * FROM playlists WHERE is_public=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setBoolean(1, true);
+
+        ResultSet res = statement.executeQuery();
+        List<Playlist> playlists = new ArrayList<>();
+
+        while (res.next()){
+            Playlist playlist = new Playlist();
+            playlist.setId(res.getInt("id"));
+            playlist.setTitle(res.getString("title"));
+            playlist.setUser(res.getInt("user"));
+            playlist.setDescription(res.getString("description"));
+            playlist.setPublic(res.getBoolean("is_public"));
+            playlists.add(playlist);
+        }
+
+        return playlists;
+    }
+
+    public boolean doesMusicExistInPlaylist(int playlistId, int musicId) throws SQLException {
+        System.out.println(playlistId);
+        String query = "SELECT * FROM playlist_music_link WHERE music=? AND playlist=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, musicId);
+        statement.setInt(2, playlistId);
+
+        ResultSet res = statement.executeQuery();
+
+        if (res.next()){
+            return true;
+        }
+        return false;
     }
 }

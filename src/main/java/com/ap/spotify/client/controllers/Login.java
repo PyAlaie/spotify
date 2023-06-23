@@ -1,5 +1,6 @@
 package com.ap.spotify.client.controllers;
 
+import com.ap.spotify.Test;
 import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
@@ -9,21 +10,29 @@ import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Login {
+public class Login implements Initializable {
     @FXML
     private TextField usernameTxt;
     @FXML
-    private TextField passwordTxt;
+    private PasswordField passwordTxt;
     @FXML
     private Label label;
+    @FXML
+    ImageView logo;
     public void login(ActionEvent e) throws IOException, ClassNotFoundException {
         String username = usernameTxt.getText();
         String password =passwordTxt.getText();
@@ -80,5 +89,11 @@ public class Login {
         Node source = (Node)  actionEvent.getSource();
         Stage stage  = (Stage) source.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Image image = new Image(Test.class.getResource("cloud/logo.jpg").toExternalForm());
+        logo.setImage(image);
     }
 }

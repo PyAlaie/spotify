@@ -77,6 +77,7 @@ public class MyLibrary implements Initializable {
                     @Override
                     public void handle(MouseEvent event) {
                         StaticData.artistToView = artist;
+                        System.out.println(artist.getId());
                         try {
                             openStage("artistProfileView.fxml");
                         } catch (IOException e) {
@@ -103,6 +104,9 @@ public class MyLibrary implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     StaticData.musicToPlay = button.getText();
+                    ArrayList<String> list = new ArrayList<String>();
+                    list.add(button.getText());
+                    StaticData.musicsList = list;
                     try {
                         openStage("musicPlayer.fxml");
                     } catch (IOException e) {

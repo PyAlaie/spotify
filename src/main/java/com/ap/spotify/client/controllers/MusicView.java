@@ -6,6 +6,7 @@ import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Comment;
 import com.ap.spotify.shared.models.Music;
+import com.ap.spotify.shared.models.Playlist;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,13 +14,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -43,6 +43,8 @@ public class MusicView implements Initializable {
     ImageView coverPic;
     @FXML
     Button likeBtn;
+    @FXML
+    VBox addToPlaylistVbox;
 
     private int openedMusic;
     Music music;
@@ -53,14 +55,13 @@ public class MusicView implements Initializable {
         Request request = new Request("viewMusic");
         request.setJson(new Gson().toJson(StaticData.musicToOpenId));
 
+        Request request1 = new Request("myPlaylists");
+        request1.setJson(new Gson().toJson(StaticData.loggedInAccount.getId()));
+
         try {
             StaticData.objOut.writeObject(request);
             StaticData.objOut.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
-        try {
             Response response = (Response) StaticData.objIn.readObject();
             System.out.println(response.getMessage());
             if(response.getStatusCode()==200){
@@ -72,6 +73,48 @@ public class MusicView implements Initializable {
                 putMusic(music);
                 putComments((List<Comment>) map.get("comments"));
                 putLikes((Double) map.get("likesCount"));
+            }
+
+            StaticData.objOut.writeObject(request1);
+            StaticData.objOut.flush();
+
+            response = (Response) StaticData.objIn.readObject();
+            Type type = new com.google.gson.reflect.TypeToken<List<Playlist>>(){}.getType();
+            List<Playlist> playlists = new Gson().fromJson(response.getJson(), type);
+
+            addToPlaylistVbox.getChildren().clear();
+            for(int i = 0; i < playlists.size(); i++){
+                Playlist playlist = new Gson().fromJson(new Gson().toJson(playlists.get(i)), Playlist.class);
+
+                Button button = new Button(playlist.getTitle());
+                button.setPrefWidth(Double.MAX_VALUE);
+                button.setPrefHeight(20);
+                button.setFont(new Font(20));
+                button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            Request request2 = new Request("addMusicToPlaylist");
+                            HashMap<String, Object> map = new HashMap<>();
+                            map.put("musicId", music.getId());
+                            map.put("playlistId", playlist.getId());
+                            request2.setJson(new Gson().toJson(map));
+
+                            StaticData.objOut.writeObject(request2);
+                            StaticData.objOut.flush();
+
+                            Response response1 = (Response) StaticData.objIn.readObject();
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setTitle("Adding to playlist!");
+                            alert.setHeaderText(response1.getMessage());
+                            alert.show();
+                        } catch (IOException | ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                });
+
+                addToPlaylistVbox.getChildren().add(button);
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -205,7 +248,18 @@ public class MusicView implements Initializable {
         }
     }
 
-    public void download(ActionEvent event){
+    public void download(){
+        String directoryPath = "src/main/resources/com/ap/spotify/downloads";
+        File directory = new File(directoryPath);
+        File[] files = directory.listFiles();
+        assert files != null;
+        for (File file : files) {
+            if (file.isFile() && (music.getTitle()+".mp3").equals(file.getName())) {
+                System.out.println("Music is already downloaded!");
+                return;
+            }
+        }
+
         Request request = new Request("downloadMusic");
         request.setJson(new Gson().toJson(music.getMusicFilePath()));
 
@@ -223,11 +277,25 @@ public class MusicView implements Initializable {
                 FileOutputStream fos = new FileOutputStream(file);
                 fos.write(bytes);
                 fos.close();
+                System.out.println("downloaded music successfully");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } catch (IOException | ClassNotFoundException exception) {
             throw new RuntimeException(exception);
+        }
+    }
+
+    public void play(){
+        download();
+        StaticData.musicToPlay = music.getTitle() + ".mp3";
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(music.getTitle() + ".mp3");
+        StaticData.musicsList = list;
+        try {
+            openStage("musicPlayer.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

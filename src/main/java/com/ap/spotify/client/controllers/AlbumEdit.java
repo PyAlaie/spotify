@@ -3,7 +3,6 @@ package com.ap.spotify.client.controllers;
 import com.ap.spotify.Test;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
-import com.ap.spotify.shared.models.Account;
 import com.ap.spotify.shared.models.Album;
 import com.ap.spotify.shared.models.Genre;
 import com.google.gson.Gson;
@@ -96,7 +95,7 @@ public class AlbumEdit implements Initializable {
         }
     }
 
-    public void save(ActionEvent event){
+    public void save(){
         album.setTitle(titleTxt.getText());
         album.setGenre(genreCombo.getValue().getId());
         if(pathTxt.getText() != null){
