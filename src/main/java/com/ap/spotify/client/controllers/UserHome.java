@@ -33,6 +33,7 @@ public class UserHome implements Initializable {
         Image image = new Image(Test.class.getResource("cloud/profile.png").toExternalForm());
         if(StaticData.loggedInUser.getProfilePicPath() != null){
             try {
+                System.out.println("cloud/" + StaticData.loggedInUser.getProfilePicPath());
                 image = new Image(Test.class.getResource("cloud/" + StaticData.loggedInUser.getProfilePicPath()).toExternalForm());
             }
             catch (Exception e){
@@ -61,11 +62,6 @@ public class UserHome implements Initializable {
             throw new RuntimeException(ioException);
         }
     }
-
-//    public void myLibrary(ActionEvent e){
-//        StaticData.playlistToOpen = 1;
-//        loadScene("playlistView.fxml");
-//    }
 
     public void search(ActionEvent event){
         loadScene("search.fxml");

@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" prefHeight="258.0" prefWidth="601.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicPlayer">
+<AnchorPane fx:id="root" prefHeight="258.0" prefWidth="630.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicPlayer">
    <children>
-      <Label fx:id="musicTitleLbl" alignment="CENTER" layoutY="22.0" text="Label" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Label fx:id="musicTitleLbl" alignment="CENTER" layoutY="21.0" text="Label" textFill="#1dd563" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <font>
             <Font size="40.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="musicTimeline" layoutY="129.0" prefHeight="30.0" prefWidth="601.0" progress="0.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-      <Button fx:id="pausePlayBtn" layoutX="230.0" layoutY="181.0" mnemonicParsing="false" onAction="#pauseAndPlay" prefHeight="35.0" prefWidth="140.0" text="Puase/play">
+      <ProgressBar fx:id="musicTimeline" layoutY="129.0" prefHeight="30.0" prefWidth="601.0" progress="0.0" style="-fx-accent: #1cca5d;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+      <Button fx:id="pausePlayBtn" layoutX="245.0" layoutY="181.0" mnemonicParsing="false" onAction="#pauseAndPlay" prefHeight="35.0" prefWidth="140.0" text="Puase / play">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Slider fx:id="volumeSlider" layoutX="435.0" layoutY="191.0" max="100.0" prefHeight="7.0" prefWidth="150.0" value="50.0" />
-      <ComboBox fx:id="speedBox" layoutX="14.0" layoutY="180.0" onAction="#changeSpeed" prefHeight="36.0" prefWidth="109.0" promptText="SPEED" />
-      <Button layoutX="147.0" layoutY="186.0" mnemonicParsing="false" onAction="#previousMedia" text="Pervious" />
-      <Button layoutX="378.0" layoutY="186.0" mnemonicParsing="false" onAction="#nextMedia" text="Next" />
+      <Slider fx:id="volumeSlider" layoutX="515.0" layoutY="190.0" max="100.0" prefHeight="16.0" prefWidth="100.0" value="50.0" />
+      <ComboBox fx:id="speedBox" layoutX="14.0" layoutY="180.0" onAction="#changeSpeed" prefHeight="36.0" prefWidth="100.0" promptText="SPEED" />
+      <Button layoutX="161.0" layoutY="186.0" mnemonicParsing="false" onAction="#previousMedia" text="Pervious" textFill="#1dd563" />
+      <Button layoutX="397.0" layoutY="186.0" mnemonicParsing="false" onAction="#nextMedia" prefHeight="25.0" prefWidth="61.0" text="Next" textFill="#1dd563" />
    </children>
 </AnchorPane>

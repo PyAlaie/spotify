@@ -6,18 +6,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Search">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="609.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Search">
    <children>
-      <TextField fx:id="searchTxt" layoutY="1.0" prefHeight="81.0" prefWidth="565.0" promptText="Search..." AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="128.0" AnchorPane.topAnchor="0.0">
+      <TextField fx:id="searchTxt" layoutY="1.0" prefHeight="81.0" prefWidth="565.0" promptText="Search..." style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="128.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="24.0" />
          </font>
       </TextField>
-      <Button layoutX="565.0" layoutY="1.0" mnemonicParsing="false" onAction="#search" prefHeight="81.0" prefWidth="129.0" style="-fx-background-color: #1db954;" text="Search" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Button layoutX="565.0" layoutY="1.0" mnemonicParsing="false" onAction="#search" prefHeight="81.0" prefWidth="129.0" style="-fx-background-color: #1DD563;" text="Search" textFill="WHITE" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <VBox fx:id="searchRes" layoutX="107.0" layoutY="131.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+      <VBox fx:id="searchRes" layoutX="107.0" layoutY="131.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
    </children>
 </AnchorPane>

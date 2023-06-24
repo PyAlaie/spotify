@@ -1,6 +1,7 @@
 package com.ap.spotify.shared.crudFiles;
 
 import com.ap.spotify.server.Database;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.Music;
 
 import java.sql.PreparedStatement;
@@ -56,6 +57,9 @@ public class CrudMusic {
 
             CrudArtist crudArtist = new CrudArtist(database);
             music.setArtistObj(crudArtist.getArtistById(music.getArtist()));
+
+            CrudGenre crudGenre = new CrudGenre(database);
+            music.setGenreObj(crudGenre.getGenreById(music.getGenre()));
 
             return music;
         }
@@ -278,5 +282,47 @@ public class CrudMusic {
         }
 
         return music;
+    }
+
+    public List<Music> getMusicByGenre(int genreId) throws SQLException {
+        String query = "SELECT * FROM musics WHERE genre=?";
+
+        PreparedStatement statement = database.getConnection().prepareStatement(query);
+        statement.setInt(1, genreId);
+
+        ResultSet res = statement.executeQuery();
+        List<Music> musics = new ArrayList<>();
+
+        while (res.next()){
+            Music music = new Music();
+
+            music.setId(res.getInt("id"));
+            music.setTitle(res.getString("title"));
+            music.setDuration(res.getInt("duration"));
+            music.setArtist(res.getInt("artist"));
+            music.setCoverPicPath(res.getString("cover_pic_path"));
+            music.setLyricsFilePath(res.getString("lyrics_file_path"));
+            music.setPopularity(res.getInt("popularity"));
+            music.setGenre(res.getInt("genre"));
+            music.setReleaseDate(res.getDate("release_date"));
+            music.setMusicFilePath(res.getString("music_file_path"));
+
+            musics.add(music);
+        }
+
+        return musics;
+    }
+
+    public List<Music> getMusicsOfFollowingArtists(int userId) throws SQLException{
+        List<Music> musics = new ArrayList<>();
+        CrudUser crudUser = new CrudUser(database);
+        CrudArtist crudArtist = new CrudArtist(database);
+
+        List<Artist> artists = crudUser.getFollowings(userId);
+        for(Artist artist : artists){
+            musics = crudArtist.getMusicsOfArtist(artist.getId());
+        }
+
+        return musics;
     }
 }

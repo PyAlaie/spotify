@@ -31,6 +31,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -248,6 +249,7 @@ public class MyLibrary implements Initializable {
         User user = new User();
         user.setId(StaticData.loggedInAccount.getId());
         user.setUsername(usernameTxt.getText());
+        user.setEmail(emailTxt.getText());
 
         if(!pathLbl.getText().equals("path")){
             user.setProfilePicPath(pathLbl.getText());
@@ -261,6 +263,7 @@ public class MyLibrary implements Initializable {
             StaticData.objOut.flush();
 
             Response response = (Response) StaticData.objIn.readObject();
+
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("User profile");
             alert.setHeaderText(response.getMessage());

@@ -2,6 +2,16 @@ package com.ap.spotify.shared.models;
 
 public class Artist extends Account{
     private String biography;
+    private Genre genreObj;
+
+    public Genre getGenreObj() {
+        return genreObj;
+    }
+
+    public void setGenreObj(Genre genreObj) {
+        this.genreObj = genreObj;
+    }
+
     private int genre;
     public String getProfilePicPath() {
         return profilePicPath;

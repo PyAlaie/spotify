@@ -6,16 +6,13 @@ import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Album;
 import com.ap.spotify.shared.models.Genre;
 import com.google.gson.Gson;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -59,13 +56,10 @@ public class AlbumEdit implements Initializable {
         dateTxt.setText(String.valueOf(album.getReleaseDate()));
         pathTxt.setText(album.getCoverPicPath());
         Image image = new Image(Test.class.getResource("cloud/image.jpg").toExternalForm());
-        if(album.getCoverPicPath()!= null){
-            try {
-                image = new Image(Test.class.getResource("cloud/" + album.getCoverPicPath()).toExternalForm());
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
+        try {
+            coverImg = new ImageView(Test.class.getResource("cloud/").toExternalForm() + album.getCoverPicPath());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         coverImg.setImage(image);
 
@@ -118,11 +112,5 @@ public class AlbumEdit implements Initializable {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void closeWindow(ActionEvent actionEvent){
-        Node source = (Node)  actionEvent.getSource();
-        Stage stage  = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

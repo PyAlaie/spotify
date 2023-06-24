@@ -8,28 +8,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="434.0" prefWidth="651.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.PlaylistAdd">
+<AnchorPane prefHeight="434.0" prefWidth="651.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.PlaylistAdd">
    <children>
-      <TextField fx:id="titleTxt" layoutX="100.0" layoutY="32.0" prefHeight="51.0" prefWidth="450.0" promptText="Title">
+      <TextField fx:id="titleTxt" layoutX="100.0" layoutY="32.0" prefHeight="51.0" prefWidth="450.0" promptText="Title" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css">
          <font>
             <Font size="23.0" />
          </font>
       </TextField>
-      <TextArea fx:id="descriptionTxt" layoutX="100.0" layoutY="90.0" prefHeight="187.0" prefWidth="451.0" promptText="Description">
+      <TextArea fx:id="descriptionTxt" layoutX="100.0" layoutY="90.0" prefHeight="187.0" prefWidth="451.0" promptText="Description" styleClass="text-Area" stylesheets="@styling.css">
          <font>
-            <Font size="16.0" />
+            <Font size="23.0" />
          </font>
       </TextArea>
-      <Button layoutX="100.0" layoutY="342.0" mnemonicParsing="false" onAction="#save" prefWidth="450.0" style="-fx-background-color: #1db954;" text="Add" textFill="WHITE">
+      <Button layoutX="100.0" layoutY="342.0" mnemonicParsing="false" onAction="#save" prefWidth="450.0" style="-fx-background-color: #1DD563;" text="Add" textFill="WHITE">
          <font>
             <Font size="19.0" />
          </font>
       </Button>
-      <RadioButton fx:id="publicBtn" layoutX="100.0" layoutY="283.0" mnemonicParsing="false" text="public">
+      <RadioButton fx:id="publicBtn" layoutX="100.0" layoutY="283.0" mnemonicParsing="false" text="public" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="visibility" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="privateBtn" layoutX="171.0" layoutY="283.0" mnemonicParsing="false" selected="true" text="private" toggleGroup="$visibility" />
+      <RadioButton fx:id="privateBtn" layoutX="171.0" layoutY="283.0" mnemonicParsing="false" selected="true" text="private" textFill="WHITE" toggleGroup="$visibility" />
    </children>
 </AnchorPane>

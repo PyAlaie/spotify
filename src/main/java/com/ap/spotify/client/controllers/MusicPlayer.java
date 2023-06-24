@@ -48,7 +48,7 @@ public class MusicPlayer implements Initializable {
     private int[] speeds = {25, 50, 75, 100, 125, 150, 175, 200};
 
 
-    MediaPlayer mediaPlayer;
+//    MediaPlayer mediaPlayer;
     Media sound;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -79,12 +79,17 @@ public class MusicPlayer implements Initializable {
             String musicFile = "src/main/resources/com/ap/spotify/downloads/" + StaticData.musicToPlay;
             sound = new Media(new File(musicFile).toURI().toString());
         }
-        mediaPlayer = new MediaPlayer(sound);
+
+        if(StaticData.isMediaRunning){
+            StaticData.mediaPlayer.stop();
+        }
+        StaticData.mediaPlayer = new MediaPlayer(sound);
+        StaticData.isMediaRunning = true;
 
         volumeSlider.valueProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+                StaticData.mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
             }
         });
 
@@ -96,21 +101,21 @@ public class MusicPlayer implements Initializable {
         changeSpeed(null);
 
         beginTimer();
-        mediaPlayer.play();
+        StaticData.mediaPlayer.play();
     }
 
     public void playMedia() {
         beginTimer();
         changeSpeed(null);
-        mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
-        mediaPlayer.play();
+        StaticData.mediaPlayer.setVolume(volumeSlider.getValue() * 0.01);
+        StaticData.mediaPlayer.play();
     }
 
     public void previousMedia() {
         if(songIndex > 0) {
             songIndex--;
 
-            mediaPlayer.stop();
+            StaticData.mediaPlayer.stop();
 
             if(running) {
                 cancelTimer();
@@ -124,7 +129,7 @@ public class MusicPlayer implements Initializable {
                 StaticData.objOut.flush();
 
                 Response response = (Response) StaticData.objIn.readObject();
-                System.out.println("test" + response.getMessage());
+                System.out.println(response.getMessage());
                 music = new Gson().fromJson(response.getJson(), Music.class);
             } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
@@ -139,7 +144,7 @@ public class MusicPlayer implements Initializable {
                 String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
                 sound = new Media(new File(musicFile).toURI().toString());
             }
-            mediaPlayer = new MediaPlayer(sound);
+            StaticData.mediaPlayer = new MediaPlayer(sound);
 
             musicTitleLbl.setText(musics.get(songIndex));
 
@@ -147,14 +152,14 @@ public class MusicPlayer implements Initializable {
         }
         else {
             songIndex = musics.size() - 1;
-            mediaPlayer.stop();
+            StaticData.mediaPlayer.stop();
             if(running) {
                 cancelTimer();
             }
 
             String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
             sound = new Media(new File(musicFile).toURI().toString());
-            mediaPlayer = new MediaPlayer(sound);
+            StaticData.mediaPlayer = new MediaPlayer(sound);
 
             musicTitleLbl.setText(musics.get(songIndex));
 
@@ -165,7 +170,7 @@ public class MusicPlayer implements Initializable {
     public void nextMedia() {
         if(songIndex < musics.size() - 1) {
             songIndex++;
-            mediaPlayer.stop();
+            StaticData.mediaPlayer.stop();
             if(running) {
                 cancelTimer();
             }
@@ -193,7 +198,7 @@ public class MusicPlayer implements Initializable {
                 String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
                 sound = new Media(new File(musicFile).toURI().toString());
             }
-            mediaPlayer = new MediaPlayer(sound);
+            StaticData.mediaPlayer = new MediaPlayer(sound);
 
             musicTitleLbl.setText(musics.get(songIndex));
 
@@ -201,14 +206,14 @@ public class MusicPlayer implements Initializable {
         }
         else {
             songIndex = 0;
-            mediaPlayer.stop();
+            StaticData.mediaPlayer.stop();
             if(running) {
                 cancelTimer();
             }
 
             String musicFile = "src/main/resources/com/ap/spotify/downloads/" + musics.get(songIndex);
             sound = new Media(new File(musicFile).toURI().toString());
-            mediaPlayer = new MediaPlayer(sound);
+            StaticData.mediaPlayer = new MediaPlayer(sound);
 
             musicTitleLbl.setText(musics.get(songIndex));
 
@@ -217,11 +222,11 @@ public class MusicPlayer implements Initializable {
     }
 
     public void pauseAndPlay(ActionEvent event){
-        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)){
-            mediaPlayer.pause();
+        if(StaticData.mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)){
+            StaticData.mediaPlayer.pause();
         }
         else {
-            mediaPlayer.play();
+            StaticData.mediaPlayer.play();
         }
     }
 
@@ -231,7 +236,7 @@ public class MusicPlayer implements Initializable {
         task = new TimerTask() {
             public void run() {
                 running = true;
-                double current = mediaPlayer.getCurrentTime().toSeconds();
+                double current = StaticData.mediaPlayer.getCurrentTime().toSeconds();
                 double end = sound.getDuration().toSeconds();
                 musicTimeline.setProgress(current/end);
 
@@ -251,10 +256,10 @@ public class MusicPlayer implements Initializable {
 
     public void changeSpeed(ActionEvent event) {
         if(speedBox.getValue() == null) {
-            mediaPlayer.setRate(1);
+            StaticData.mediaPlayer.setRate(1);
         }
         else {
-            mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01);
+            StaticData.mediaPlayer.setRate(Integer.parseInt(speedBox.getValue().substring(0, speedBox.getValue().length() - 1)) * 0.01);
         }
     }
 

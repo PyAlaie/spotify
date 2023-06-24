@@ -1024,6 +1024,66 @@ public class Session implements Runnable{
 
         return response;
     }
+    public Response getMusicsOfGenre(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int genreId = gson.fromJson(json, Integer.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try{
+            List<Music> musics = crudMusic.getMusicByGenre(genreId);
+            response.setJson(new Gson().toJson(musics));
+            response.setMessage("Music!");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the music!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response getRecommendedMusics(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int userId = gson.fromJson(json, Integer.class);
+        CrudMusic crudMusic = new CrudMusic(database);
+
+        try{
+            List<Music> musics = crudMusic.getMusicsOfFollowingArtists(userId);
+            response.setJson(new Gson().toJson(musics));
+            response.setMessage("Musics!");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the music!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
+    public Response getGenreById(Request request){
+        String json = request.getJson();
+        Response response = new Response();
+        Gson gson = new Gson();
+        int genreId = gson.fromJson(json, Integer.class);
+        CrudGenre crudGenre = new CrudGenre(database);
+
+        try{
+            Genre genre = crudGenre.getGenreById(genreId);
+            response.setJson(new Gson().toJson(genre));
+            response.setMessage("Genre!");
+            response.setStatusCode(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.setMessage("Error in getting the genre!");
+            response.setStatusCode(400);
+        }
+
+        return response;
+    }
     public String createRandomString(){
         int length = 10;
 
@@ -1053,8 +1113,8 @@ public class Session implements Runnable{
         if (command.equals("getNewMusics")) {
             response = getNewMusics();
         }
-        else if (command.equals("recommendMusic")) {
-            // TODO: good luck my friend ...
+        else if (command.equals("getRecommendedMusics")) {
+            response = getRecommendedMusics(request);
         }
         else if(command.equals("newComment")){
             response = createNewComment(request);
@@ -1140,6 +1200,12 @@ public class Session implements Runnable{
         else if(command.equals("logout")){
             response = logout();
         }
+        else if (command.equals("getMusicsOfGenre")) {
+            response = getMusicsOfGenre(request);
+        }
+        else if (command.equals("getGenreById")) {
+            response = getGenreById(request);
+        }
 
         return response;
     }
@@ -1182,6 +1248,9 @@ public class Session implements Runnable{
         }
         else if (command.equals("viewAlbum")) {
             response = viewAlbum(request);
+        }
+        else if(command.equals("logout")){
+            response = logout();
         }
 
         return response;

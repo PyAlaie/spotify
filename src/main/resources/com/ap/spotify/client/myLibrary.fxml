@@ -10,87 +10,90 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MyLibrary">
-  <tabs>
-    <Tab text="Playlists">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox fx:id="playlistsVbox" layoutX="133.0" layoutY="33.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button layoutX="151.0" layoutY="330.0" mnemonicParsing="false" onAction="#addNewPlaylist" prefHeight="40.0" style="-fx-background-color: #1db954;" text="Add new playlist" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Button>
-                  <Button layoutY="329.0" mnemonicParsing="false" onAction="#loadPlaylists" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #0775C7;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-    <Tab text="Liked songs">
-      <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox fx:id="likedMusicsVbox" layoutX="200.0" layoutY="47.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children></AnchorPane>
-      </content>
-    </Tab>
-      <Tab text="Downloads">
-         <content>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <Label layoutX="255.0" layoutY="104.0" text="DOWNLOADS" textFill="#1db954" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
-                     <font>
-                        <Font size="39.0" />
-                     </font>
-                  </Label>
-                  <VBox fx:id="downloadsVbox" layoutX="74.0" layoutY="117.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab text="Followings">
-         <content>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <VBox fx:id="followingsVbox" layoutX="221.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-      <Tab text="Profile">
-         <content>
-            <AnchorPane prefHeight="400.0" prefWidth="600.0">
-               <children>
-                  <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="25.0" layoutY="22.0" prefHeight="67.0" prefWidth="331.0" promptText="Username" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="emailTxt" alignment="CENTER" layoutX="25.0" layoutY="114.0" prefHeight="63.0" prefWidth="332.0" promptText="Email">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </TextField>
-                  <ImageView fx:id="coverPicImg" fitHeight="200.0" fitWidth="200.0" layoutX="372.0" layoutY="20.0" pickOnBounds="true" AnchorPane.topAnchor="20.0" />
-                  <Button layoutX="372.0" layoutY="226.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #0775c7;" text="Upload image" textFill="WHITE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="83.0" layoutY="197.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="56.0" prefWidth="213.0" style="-fx-background-color: #1db954;" text="Save" textFill="WHITE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="pathLbl" alignment="CENTER" layoutX="372.0" layoutY="272.0" prefHeight="17.0" prefWidth="200.0" text="path" />
-                  <Button layoutX="83.0" layoutY="269.0" mnemonicParsing="false" onAction="#logout" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #C75450;" text="Logout" textFill="WHITE">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </Button>
-               </children>
-            </AnchorPane>
-         </content>
-      </Tab>
-  </tabs>
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #202020;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MyLibrary">
+    <tabs>
+        <Tab text="Playlists">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #020202;">
+                    <children>
+                        <VBox fx:id="playlistsVbox" layoutX="133.0" layoutY="33.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button layoutX="151.0" layoutY="330.0" mnemonicParsing="false" onAction="#addNewPlaylist" prefHeight="40.0" style="-fx-background-color: #1db954;" text="Add new playlist" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
+                            <font>
+                                <Font size="21.0" />
+                            </font>
+                        </Button>
+                        <Button layoutY="329.0" mnemonicParsing="false" onAction="#loadPlaylists" prefHeight="45.0" prefWidth="100.0" style="-fx-background-color: #0775C7;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Liked songs">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <VBox fx:id="likedMusicsVbox" layoutX="200.0" layoutY="47.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children></AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Downloads">
+            <content>
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #020202;">
+                    <children>
+                        <Label alignment="CENTER" layoutX="10.0" layoutY="4.0" prefHeight="66.0" prefWidth="588.0" text="DOWNLOADS" textFill="#1dd563" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="4.0">
+                            <font>
+                                <Font name="System Italic" size="39.0" />
+                            </font>
+                        </Label>
+                        <VBox fx:id="downloadsVbox" layoutX="74.0" layoutY="117.0" prefHeight="200.0" prefWidth="100.0" spacing="2.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Followings">
+            <content>
+                <AnchorPane prefHeight="400.0" prefWidth="600.0">
+                    <children>
+                        <VBox fx:id="followingsVbox" layoutX="221.0" layoutY="20.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab text="Profile">
+            <content>
+                <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #020202;">
+                    <children>
+                        <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="25.0" layoutY="22.0" prefHeight="67.0" prefWidth="331.0" promptText="Username" AnchorPane.topAnchor="20.0">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </TextField>
+                        <TextField fx:id="emailTxt" alignment="CENTER" layoutX="25.0" layoutY="114.0" prefHeight="63.0" prefWidth="332.0" promptText="Email">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </TextField>
+                        <ImageView fx:id="coverPicImg" fitHeight="200.0" fitWidth="200.0" layoutX="372.0" layoutY="20.0" pickOnBounds="true" AnchorPane.topAnchor="20.0" />
+                        <Button layoutX="365.0" layoutY="218.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #0775c7;" text="Upload image" textFill="WHITE">
+                            <font>
+                                <Font size="16.0" />
+                            </font>
+                        </Button>
+                        <Button layoutX="84.0" layoutY="214.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #1db954;" text="Save" textFill="WHITE">
+                            <font>
+                                <Font size="22.0" />
+                            </font>
+                        </Button>
+                        <Label fx:id="pathLbl" alignment="CENTER" layoutX="372.0" layoutY="272.0" prefHeight="17.0" prefWidth="200.0" text="path" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font></Label>
+                        <Button layoutX="83.0" layoutY="269.0" mnemonicParsing="false" onAction="#logout" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #C75450;" text="Logout" textFill="WHITE">
+                            <font>
+                                <Font size="22.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
 </TabPane>

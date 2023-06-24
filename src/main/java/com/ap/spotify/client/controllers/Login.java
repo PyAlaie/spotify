@@ -5,6 +5,7 @@ import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Account;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
@@ -49,27 +50,27 @@ public class Login implements Initializable {
         System.out.println("Login request sent!");
 
         Response response = (Response) StaticData.objIn.readObject();
-        if (response.getStatusCode() == 200){
+        if (response.getStatusCode() == 200) {
             String json = response.getJson();
             StaticData.isLogggedIn = true;
             StaticData.loggedInAccount = gson.fromJson(json, Account.class);
-            StaticData.loggedInUser = gson.fromJson(json, User.class);
+
+            System.out.println(response.getMessage());
+
+            if (StaticData.isLogggedIn) {
+                if (StaticData.loggedInAccount.getRole().equals("user")) {
+                    StaticData.loggedInUser = gson.fromJson(json, User.class);
+                    openStage("userHome.fxml");
+                    closeWindow(e);
+                } else {
+                    StaticData.loggedInArtist = gson.fromJson(json, Artist.class);
+                    openStage("artistPanel.fxml");
+                    closeWindow(e);
+                }
+            }
         }
-        else {
+        else{
             label.setText(response.getMessage());
-        }
-
-        System.out.println(response.getMessage());
-
-        if(StaticData.isLogggedIn){
-            if (StaticData.loggedInAccount.getRole().equals("user")){
-                openStage("userHome.fxml");
-                closeWindow(e);
-            }
-            else {
-                openStage("artistPanel.fxml");
-                closeWindow(e);
-            }
         }
     }
 

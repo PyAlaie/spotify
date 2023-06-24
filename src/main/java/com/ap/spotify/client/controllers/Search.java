@@ -96,7 +96,12 @@ public class Search {
                 button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        //TODO: fill this shit
+                        StaticData.playlistToOpen = playlist.getId();
+                        try {
+                            openStage("playlistView.fxml");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
             }
@@ -116,7 +121,13 @@ public class Search {
                 button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        //TODO: fill this shit
+                        StaticData.albumToView = album;
+
+                        try {
+                            openStage("albumView.fxml");
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 });
             }
@@ -131,7 +142,7 @@ public class Search {
                 button.setFont(new Font(22));
                 button.setBackground(Background.fill(Color.rgb(46, 138, 153)));
                 button.setTextFill(Color.WHITE);
-                searchRes.getChildren().add(button);
+//                searchRes.getChildren().add(button);
 
                 button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override

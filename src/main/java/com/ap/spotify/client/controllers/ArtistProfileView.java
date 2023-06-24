@@ -5,6 +5,7 @@ import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Artist;
+import com.ap.spotify.shared.models.Genre;
 import com.ap.spotify.shared.models.Music;
 import com.google.gson.Gson;
 import javafx.event.EventHandler;
@@ -42,13 +43,15 @@ public class ArtistProfileView implements Initializable {
     Button followBtn;
 
     Artist artist;
+    Genre genre;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         artist = StaticData.artistToView;
+        getGenreById(artist.getGenre());
 
         biographyTxt.setText(artist.getBiography());
         artistLbl.setText(artist.getUsername());
-        genreLbl.setText("Genre: " + artist.getGenre());
+        genreLbl.setText("Genre: " + genre.getTitle());
 
         Image image = new Image(Test.class.getResource("cloud/profile.png").toExternalForm());
         if(artist.getProfilePicPath() != null){
@@ -121,6 +124,23 @@ public class ArtistProfileView implements Initializable {
                 musicsVbox.getChildren().add(button);
             }
 
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void getGenreById(int genreId) {
+        Request request = new Request("getGenreById");
+        request.setJson(new Gson().toJson(genreId));
+
+        try{
+            StaticData.objOut.writeObject(request);
+            StaticData.objOut.flush();
+
+            Response response = (Response) StaticData.objIn.readObject();
+            System.out.println(response.getMessage());
+
+            genre = new Gson().fromJson(response.getJson(), Genre.class);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

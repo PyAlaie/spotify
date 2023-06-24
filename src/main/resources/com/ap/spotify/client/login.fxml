@@ -10,6 +10,11 @@
 
 <AnchorPane prefHeight="541.0" prefWidth="752.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Login">
    <children>
+      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="447.0" layoutY="183.0" prefHeight="45.0" prefWidth="299.0" promptText="Username" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="31.0">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </TextField>
       <PasswordField fx:id="passwordTxt" alignment="CENTER" layoutX="448.0" layoutY="247.0" prefHeight="45.0" prefWidth="299.0" promptText="Password" AnchorPane.leftAnchor="448.0" AnchorPane.rightAnchor="30.0">
          <font>
             <Font size="19.0" />
@@ -20,11 +25,6 @@
             <Font name="System Bold Italic" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="447.0" layoutY="183.0" prefHeight="45.0" prefWidth="299.0" promptText="Username" AnchorPane.leftAnchor="447.0" AnchorPane.rightAnchor="31.0">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </TextField>
       <Button layoutX="365.0" layoutY="463.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="350.0" style="-fx-border-color: #1DB954; -fx-background-color: transparent; -fx-border-width: 4; -fx-background-radius: 20; -fx-border-radius: 20;" text="Sign Up" textFill="WHITE">
          <font>
             <Font size="15.0" />

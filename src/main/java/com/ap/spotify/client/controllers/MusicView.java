@@ -45,6 +45,8 @@ public class MusicView implements Initializable {
     Button likeBtn;
     @FXML
     VBox addToPlaylistVbox;
+    @FXML
+    TextArea lyricsTxt;
 
     private int openedMusic;
     Music music;
@@ -123,10 +125,24 @@ public class MusicView implements Initializable {
 
     public void putMusic(Music music){
         musicName.setText(music.getTitle());
-        genre.setText(genre.getText()+ music.getGenre());
+        genre.setText(genre.getText()+ music.getGenreObj().getTitle());
         artist.setText(artist.getText()+ music.getArtistObj().getUsername());
         popularity.setText(popularity.getText()+ music.getPopularity());
         date.setText("Release date: " + music.getReleaseDate());
+        lyricsTxt.setText(music.getLyricsFilePath());
+
+        genre.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                StaticData.genreToView = music.getGenreObj();
+
+                try {
+                    openStage("genreView.fxml");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         artist.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override

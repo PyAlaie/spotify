@@ -19,8 +19,8 @@ public class CrudAlbum {
     }
 
     public void newAlbum(Album album) throws SQLException {
-        String query = "INSERT INTO albums (title, release_date, popularity, artist, genre) VALUES " +
-                "(?,?,?,?,?)";
+        String query = "INSERT INTO albums (title, release_date, popularity, artist, genre, cover_pic_path) VALUES " +
+                "(?,?,?,?,?,?)";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setString(1, album.getTitle());
@@ -28,6 +28,7 @@ public class CrudAlbum {
         statement.setInt(3, album.getPopularity());
         statement.setInt(4, album.getArtist());
         statement.setInt(5, album.getGenre());
+        statement.setString(6, album.getCoverPicPath());
 
         statement.executeUpdate();
     }
@@ -75,6 +76,7 @@ public class CrudAlbum {
             album.setPopularity(res.getInt("popularity"));
             album.setArtist(res.getInt("artist"));
             album.setReleaseDate(res.getDate("release_date"));
+            album.setCoverPicPath(res.getString("cover_pic_path"));
 
             albums.add(album);
         }

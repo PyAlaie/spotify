@@ -185,17 +185,16 @@ public class CrudArtist {
 
 
     public void updateArtist(Artist artist) throws SQLException {
-        String query = "UPDATE users SET username=?, password=?, biography=?, profile_pic_path=?, genre=? WHERE id=?";
+        String query = "UPDATE artists SET username=?, biography=?, profile_pic_path=?, genre=? WHERE id=?";
 
         PreparedStatement statement = database.getConnection().prepareStatement(query);
         statement.setString(1, artist.getUsername());
-        statement.setString(2, artist.hashPassword());
-        statement.setString(3, artist.getBiography());
-        statement.setString(4, artist.getProfilePicPath());
-        statement.setInt(5, artist.getGenre());
+        statement.setString(2, artist.getBiography());
+        statement.setString(3, artist.getProfilePicPath());
+        statement.setInt(4, artist.getGenre());
         statement.setInt(5, artist.getId());
 
-        statement.executeQuery();
+        statement.executeUpdate();
     }
 
     public List<Artist> search(String expression) throws SQLException {

@@ -14,7 +14,7 @@
          </font>
       </Label>
       <VBox fx:id="playlistMusics" layoutX="269.0" layoutY="125.0" prefHeight="372.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0" />
-      <Button layoutX="297.0" layoutY="71.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" style="-fx-background-color: #1db954;" text="Play" textFill="WHITE">
+      <Button layoutX="297.0" layoutY="71.0" mnemonicParsing="false" onAction="#play" prefHeight="34.0" prefWidth="117.0" style="-fx-background-color: #1db954;" text="Play" textFill="WHITE">
          <font>
             <Font size="17.0" />
          </font>

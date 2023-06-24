@@ -1,0 +1,39 @@
+.scroll-pane > .viewport{
+    -fx-background-color: #020202;
+}
+
+.text-Field {
+    -fx-text-fill: #fff;
+}
+/*
+.text-area {
+   -fx-control-inner-background:   #212121;
+}
+
+.text-Area .content {
+    -fx-text-fill: #fff;
+}
+
+.combo-box .text {
+    -fx-text-fill: #fff;
+}
+
+.text-area .text {
+    -fx-fill: #212121; /* replace with your desired font color
+}
+*/
+.text-area .content .text {
+    -fx-text-fill: #fff; /* replace with your desired font color */
+}
+
+.combo-box {
+    -fx-background-color: #212121; /* replace with your desired color */
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: #fff; /* replace with your desired font color */
+}
+
+.listviewBtn{
+    -fx-pref-height: 20;
+}
