@@ -7,22 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="475.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.AlbumAdd">
+<AnchorPane prefHeight="475.0" prefWidth="649.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.AlbumAdd">
    <children>
-      <TextField fx:id="titleTxt" alignment="CENTER" layoutX="74.0" layoutY="31.0" prefHeight="64.0" prefWidth="499.0" promptText="Title">
+      <TextField fx:id="titleTxt" alignment="CENTER" layoutX="74.0" layoutY="31.0" prefHeight="64.0" prefWidth="499.0" promptText="Title" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css">
          <font>
             <Font size="25.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="genreCombo" layoutX="74.0" layoutY="109.0" prefHeight="28.0" prefWidth="235.0" promptText="Genre" />
-      <Button layoutX="337.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="54.0" prefWidth="237.0" style="-fx-background-color: #0775c7;" text="Upload Image Cover" textFill="WHITE">
+      <ComboBox fx:id="genreCombo" layoutX="74.0" layoutY="109.0" prefHeight="28.0" prefWidth="235.0" promptText="Genre" styleClass="combo-box" stylesheets="@styling.css" />
+      <Button layoutX="337.0" layoutY="110.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="54.0" prefWidth="237.0" style="-fx-background-color: #11a0fb; -fx-background-radius: 20;" text="Upload Image Cover">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
-      <Label fx:id="pathLbl" alignment="CENTER" layoutX="336.0" layoutY="176.0" prefHeight="17.0" prefWidth="238.0" text="path" />
-      <Button layoutX="205.0" layoutY="249.0" mnemonicParsing="false" onAction="#saveAlbum" prefHeight="54.0" prefWidth="237.0" style="-fx-background-color: #1db954;" text="Save" textFill="WHITE">
+      <Label fx:id="pathLbl" alignment="CENTER" layoutX="336.0" layoutY="176.0" prefHeight="17.0" prefWidth="238.0" text="path" textFill="WHITE" />
+      <Button layoutX="205.0" layoutY="249.0" mnemonicParsing="false" onAction="#saveAlbum" prefHeight="54.0" prefWidth="237.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Save">
          <font>
             <Font size="32.0" />
          </font>

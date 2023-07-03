@@ -7,21 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.AlbumEdit">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="635.0" style="-fx-background-color: #020202;" stylesheets="@styling.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.AlbumEdit">
    <children>
-      <TextField fx:id="titleTxt" layoutX="40.0" layoutY="28.0" prefHeight="67.0" prefWidth="314.0" promptText="Title">
+      <TextField fx:id="titleTxt" layoutX="40.0" layoutY="28.0" prefHeight="67.0" prefWidth="314.0" promptText="Title" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css">
          <font>
             <Font size="31.0" />
          </font>
       </TextField>
-      <TextField fx:id="artistTxt" editable="false" layoutX="40.0" layoutY="118.0" prefHeight="32.0" prefWidth="154.0" promptText="Artist" />
-      <TextField fx:id="dateTxt" editable="false" layoutX="40.0" layoutY="163.0" prefHeight="32.0" prefWidth="154.0" promptText="Release Date" />
-      <Button layoutX="398.0" layoutY="289.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="210.0" text="Upload Album Cover" />
+      <TextField fx:id="artistTxt" editable="false" layoutX="40.0" layoutY="118.0" prefHeight="32.0" prefWidth="154.0" promptText="Artist" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" />
+      <TextField fx:id="dateTxt" editable="false" layoutX="40.0" layoutY="163.0" prefHeight="32.0" prefWidth="154.0" promptText="Release Date" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" />
+      <Button layoutX="398.0" layoutY="289.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="210.0" style="-fx-background-color: #11a0fb; -fx-background-radius: 20;" text="Upload Album Cover" />
       <ImageView fx:id="coverImg" fitHeight="210.0" fitWidth="210.0" layoutX="398.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="popularityTxt" editable="false" layoutX="40.0" layoutY="208.0" prefHeight="32.0" prefWidth="154.0" promptText="popularity" />
-      <TextField fx:id="pathTxt" editable="false" layoutX="398.0" layoutY="246.0" prefHeight="34.0" prefWidth="210.0" promptText="path" />
-      <ComboBox fx:id="genreCombo" layoutX="40.0" layoutY="255.0" prefHeight="25.0" prefWidth="154.0" promptText="Genre" />
-      <Button layoutX="398.0" layoutY="331.0" mnemonicParsing="false" onAction="#save" prefHeight="68.0" prefWidth="210.0" style="-fx-background-color: #1db954;" text="Save" textFill="WHITE">
+      <TextField fx:id="popularityTxt" editable="false" layoutX="40.0" layoutY="208.0" prefHeight="32.0" prefWidth="154.0" promptText="popularity" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" />
+      <TextField fx:id="pathTxt" editable="false" layoutX="398.0" layoutY="246.0" prefHeight="34.0" prefWidth="210.0" promptText="path" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" />
+      <ComboBox fx:id="genreCombo" layoutX="40.0" layoutY="255.0" prefHeight="25.0" prefWidth="154.0" promptText="Genre" styleClass="combo-box" stylesheets="@styling.css" />
+      <Button layoutX="398.0" layoutY="331.0" mnemonicParsing="false" onAction="#save" prefHeight="68.0" prefWidth="210.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Save">
          <font>
             <Font size="21.0" />
          </font></Button>

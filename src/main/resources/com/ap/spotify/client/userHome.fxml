@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.24607546164973107" prefHeight="594.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.UserHome">
+<SplitPane fx:id="splitPane" dividerPositions="0.24849215922798554" prefHeight="594.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.UserHome">
    <items>
-      <AnchorPane prefHeight="528.0" prefWidth="1000.0">
+      <AnchorPane prefHeight="528.0" prefWidth="1000.0" style="-fx-background-color: #020202;">
          <children>
-            <VBox prefHeight="529.0" prefWidth="311.0" style="-fx-background-color: #121212;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="529.0" prefWidth="311.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane fx:id="profilePane" prefHeight="197.0" prefWidth="201.0">
                      <children>
@@ -50,6 +50,6 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="container" prefHeight="529.0" prefWidth="70.0" />
+      <AnchorPane fx:id="container" prefHeight="529.0" prefWidth="70.0" style="-fx-background-color: #020202;" />
    </items>
 </SplitPane>

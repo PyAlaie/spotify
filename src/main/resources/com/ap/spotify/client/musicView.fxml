@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="583.0" prefWidth="737.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicView">
+<AnchorPane prefHeight="583.0" prefWidth="737.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicView">
    <children>
       <ImageView fx:id="coverPic" fitHeight="200.0" fitWidth="200.0" layoutX="39.0" layoutY="30.0" pickOnBounds="true" AnchorPane.leftAnchor="39.0" AnchorPane.topAnchor="30.0" />
       <Label fx:id="musicName" layoutX="239.0" layoutY="21.0" prefHeight="62.0" prefWidth="396.0" text="Music Name" textFill="#1dd563" AnchorPane.leftAnchor="239.0" AnchorPane.topAnchor="21.0">
@@ -39,23 +39,23 @@
          </font>
       </Label>
       <ListView fx:id="commentsListView" layoutX="367.0" layoutY="301.1981302590187" prefHeight="200.0" prefWidth="343.0" style="-fx-background-radius: 20;" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="367.0" />
-      <Button layoutX="249.0" layoutY="511.0" mnemonicParsing="false" onAction="#play" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #1DD563; -fx-text-fill: white; -fx-background-radius: 20;" text="Play" AnchorPane.bottomAnchor="31.040414629949055" AnchorPane.rightAnchor="387.09955799085014">
+      <Button layoutX="249.0" layoutY="511.0" mnemonicParsing="false" onAction="#play" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Play" AnchorPane.bottomAnchor="31.040414629949055" AnchorPane.rightAnchor="387.09955799085014">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
       <TextField fx:id="commentTxt" layoutX="367.0" layoutY="510.0078857814534" prefHeight="40.0" prefWidth="244.0" style="-fx-background-color: #212121; -fx-background-radius: 20;" styleClass="text-Field" stylesheets="@styling.css" AnchorPane.bottomAnchor="32.032528848495645" AnchorPane.leftAnchor="367.0" />
-      <Button fx:id="newCommentBtn" layoutX="612.0" layoutY="511.00985722681685" mnemonicParsing="false" onAction="#newComment" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #1DD563; -fx-text-fill: white; -fx-background-radius: 20;" text="Comment" AnchorPane.bottomAnchor="31.030557403132207">
+      <Button fx:id="newCommentBtn" layoutX="612.0" layoutY="511.00985722681685" mnemonicParsing="false" onAction="#newComment" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Comment" AnchorPane.bottomAnchor="31.030557403132207">
          <font>
             <Font size="15.0" />
          </font></Button>
-      <Button fx:id="likeBtn" layoutX="47.0" layoutY="510.0" mnemonicParsing="false" onAction="#likeAndDislike" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #0775C7; -fx-background-radius: 20;" text="Like" textFill="WHITE">
+      <Button fx:id="likeBtn" layoutX="47.0" layoutY="510.0" mnemonicParsing="false" onAction="#likeAndDislike" prefHeight="40.0" prefWidth="90.0" style="-fx-background-color: #11a0fb; -fx-background-radius: 20;" text="Like">
          <font>
             <Font size="17.0" />
          </font>
       </Button>
       <VBox fx:id="addToPlaylistVbox" layoutX="558.0" layoutY="82.0" prefHeight="200.0" prefWidth="139.0" />
-      <Label layoutX="565.0" layoutY="44.0" text="Add to playlist" textFill="WHITE">
+      <Label layoutX="565.0" layoutY="44.0" style="-fx-background-color: #1DD563;" text="Add to playlist">
          <font>
             <Font size="17.0" />
          </font>

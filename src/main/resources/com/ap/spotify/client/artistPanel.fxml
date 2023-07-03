@@ -13,18 +13,18 @@
 <?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="702.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.ArtistPanel">
-  <tabs>
-    <Tab text="Musics">
+   <tabs>
+      <Tab text="Musics">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutY="434.0" mnemonicParsing="false" onAction="#addMusic" prefHeight="50.0" style="-fx-background-color: #1DB954;" text="Add new music" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
+                  <Button layoutY="434.0" mnemonicParsing="false" onAction="#addMusic" prefHeight="50.0" style="-fx-background-color: #1DD563;" text="Add new music" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <VBox fx:id="musicsBox" layoutX="46.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button layoutX="8.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadMusics" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11A0FB;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                  <VBox fx:id="musicsBox" layoutX="46.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="8.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadMusics" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11a0fb;" text="Reload" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -32,17 +32,17 @@
                </children>
             </AnchorPane>
          </content></Tab>
-    <Tab text="Albums">
+      <Tab text="Albums">
          <content>
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <Button layoutX="108.0" layoutY="434.0" mnemonicParsing="false" onAction="#addNewAlbum" prefHeight="51.0" prefWidth="594.0" style="-fx-background-color: #1DB954;" text="Add new album" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
+                  <Button layoutX="108.0" layoutY="434.0" mnemonicParsing="false" onAction="#addNewAlbum" prefHeight="51.0" prefWidth="594.0" style="-fx-background-color: #1DD563;" text="Add new album" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <VBox fx:id="albumsBox" layoutX="93.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button layoutX="24.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadAlbums" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11a0fb;" text="Reload" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                  <VBox fx:id="albumsBox" layoutX="93.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button layoutX="24.0" layoutY="363.0" mnemonicParsing="false" onAction="#loadAlbums" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #11a0fb;" text="Reload" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
                      <font>
                         <Font size="17.0" />
                      </font>
@@ -52,15 +52,15 @@
          </content></Tab>
       <Tab text="Genres">
          <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #020202;">
                <children>
-                  <Button layoutX="475.0" layoutY="434.0" mnemonicParsing="false" onAction="#newGenre" prefHeight="51.0" prefWidth="227.0" style="-fx-background-color: #1DB954;" text="Add new genre" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="0.0">
+                  <Button layoutX="475.0" layoutY="434.0" mnemonicParsing="false" onAction="#newGenre" prefHeight="51.0" prefWidth="227.0" style="-fx-background-color: #1DD563;" text="Add new genre" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="21.0" />
                      </font>
                   </Button>
-                  <VBox fx:id="genresBox" layoutX="93.0" layoutY="14.0" prefHeight="255.0" prefWidth="702.0" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <TextField fx:id="genreName" layoutY="268.0" prefHeight="52.0" prefWidth="475.0" promptText="Genre name" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="226.77624095125753">
+                  <VBox fx:id="genresBox" layoutX="93.0" layoutY="14.0" prefHeight="255.0" prefWidth="702.0" style="-fx-background-color: #020202;" AnchorPane.bottomAnchor="146.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <TextField fx:id="genreName" layoutY="268.0" prefHeight="52.0" prefWidth="475.0" promptText="Genre name" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="226.77624095125753">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -76,35 +76,35 @@
       </Tab>
       <Tab text="Profile">
          <content>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #020202;" stylesheets="@styling.css">
                <children>
-                  <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="33.0" layoutY="30.0" prefHeight="67.0" prefWidth="331.0" promptText="Username">
+                  <TextField fx:id="usernameTxt" alignment="CENTER" layoutX="33.0" layoutY="30.0" prefHeight="67.0" prefWidth="331.0" promptText="Username" style="-fx-background-color: #202020;" styleClass="text-Field" stylesheets="@styling.css">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </TextField>
                   <ImageView fx:id="coverPicImg" fitHeight="200.0" fitWidth="200.0" layoutX="438.0" layoutY="37.0" pickOnBounds="true" />
-                  <Button layoutX="438.0" layoutY="249.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="35.0" prefWidth="200.0" style="-fx-background-color: #0775c7;" text="Upload image" textFill="WHITE">
+                  <Button layoutX="438.0" layoutY="249.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #11a0fb; -fx-background-radius: 20;" text="Upload image">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button layoutX="33.0" layoutY="263.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="56.0" prefWidth="213.0" style="-fx-background-color: #1db954;" text="Save" textFill="WHITE">
+                  <Button layoutX="33.0" layoutY="263.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Save">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Label fx:id="pathLbl" alignment="CENTER" layoutX="438.0" layoutY="294.0" prefHeight="17.0" prefWidth="200.0" text="path" />
-                  <Button layoutX="33.0" layoutY="328.0" mnemonicParsing="false" onAction="#logout" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #C75450;" text="Logout" textFill="WHITE">
+                  <Label fx:id="pathLbl" alignment="CENTER" layoutX="438.0" layoutY="294.0" prefHeight="17.0" prefWidth="200.0" text="path" textFill="WHITE" />
+                  <Button layoutX="33.0" layoutY="328.0" mnemonicParsing="false" onAction="#logout" prefHeight="39.0" prefWidth="214.0" style="-fx-background-color: #eb0808; -fx-background-radius: 20;" text="Logout">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
                   <TextArea fx:id="biographyTxt" layoutX="33.0" layoutY="106.0" prefHeight="144.0" prefWidth="331.0" promptText="biography" />
-                  <ComboBox fx:id="genresCombo" layoutX="254.0" layoutY="263.0" prefHeight="25.0" prefWidth="172.0" promptText="Genre" />
+                  <ComboBox fx:id="genresCombo" layoutX="254.0" layoutY="263.0" prefHeight="25.0" prefWidth="172.0" promptText="Genre" styleClass="combo-box" stylesheets="@styling.css" />
                </children>
             </AnchorPane>
          </content>
       </Tab>
-  </tabs>
+   </tabs>
 </TabPane>

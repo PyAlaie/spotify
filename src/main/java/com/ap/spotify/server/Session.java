@@ -335,6 +335,7 @@ public class Session implements Runnable{
         Gson gson = new Gson();
         int albumId = gson.fromJson(json, Integer.class);
         CrudAlbum crudAlbum = new CrudAlbum(database);
+        CrudArtist crudArtist = new CrudArtist(database);
 
         try{
             Album album = crudAlbum.getAlbumById(albumId);
@@ -344,10 +345,12 @@ public class Session implements Runnable{
             }
             else {
                 List<Music> musics = crudAlbum.getAlbumMusics(albumId);
+                Artist artist = crudArtist.getArtistById(album.getArtist());
 
                 HashMap<String, Object> jsonMap = new HashMap<>();
                 jsonMap.put("album", album);
                 jsonMap.put("musics", musics);
+                jsonMap.put("artist", artist);
                 response.setJson(gson.toJson(jsonMap));
                 response.setStatusCode(200);
                 response.setMessage("Album returned!");

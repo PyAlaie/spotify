@@ -4,6 +4,7 @@ import com.ap.spotify.client.HelloApplication;
 import com.ap.spotify.shared.Request;
 import com.ap.spotify.shared.Response;
 import com.ap.spotify.shared.models.Album;
+import com.ap.spotify.shared.models.Artist;
 import com.ap.spotify.shared.models.Music;
 import com.google.gson.Gson;
 import javafx.event.EventHandler;
@@ -41,6 +42,8 @@ public class AlbumView implements Initializable {
     }
 
     private void loadAlbum() {
+        albumName.setText(album.getTitle());
+
         Request request = new Request("viewAlbum");
         request.setJson(new Gson().toJson(album.getId()));
 
@@ -54,6 +57,10 @@ public class AlbumView implements Initializable {
             if(response.getStatusCode() == 200){
                 Type type = new com.google.gson.reflect.TypeToken<HashMap<String, Object>>(){}.getType();
                 HashMap<String, Object> map = new Gson().fromJson(response.getJson(), type);
+
+                Type typeArtist = new com.google.gson.reflect.TypeToken<Artist>(){}.getType();
+                Artist artist = new Gson().fromJson(new Gson().toJson(map.get("artist")), typeArtist);
+                artistLbl.setText(String.valueOf(artist.getUsername()));
 
                 List<Music> musicList = (List<Music>) map.get("musics");
                 for(int i = 0; i < musicList.size(); i++){
@@ -92,5 +99,16 @@ public class AlbumView implements Initializable {
         Scene scene = new Scene(fxmlLoader.load());
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void play() {
+        StaticData.musicToPlay = musics.get(0);
+        StaticData.musicsList = musics;
+
+        try {
+            openStage("musicPlayer.fxml");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

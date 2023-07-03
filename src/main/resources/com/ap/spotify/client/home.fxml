@@ -7,11 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="731.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Home">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="665.0" prefWidth="731.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.Home">
    <content>
-      <VBox prefHeight="655.0" prefWidth="730.0">
+      <VBox prefHeight="655.0" prefWidth="730.0" style="-fx-background-color: #020202;">
          <children>
-            <Label prefHeight="32.0" prefWidth="858.0" style="-fx-background-color: #1DD563;" text="New Musics" textFill="WHITE">
+            <Label prefHeight="32.0" prefWidth="858.0" style="-fx-background-color: #1DD563;" text="New Musics" textFill="#202020">
                <font>
                   <Font name="System Italic" size="22.0" />
                </font>
@@ -19,11 +19,11 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </Label>
-            <ScrollPane prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #020202;">
                <content>
-                  <HBox fx:id="newMusics" prefHeight="167.0" prefWidth="810.0" spacing="10.0" />
+                  <HBox fx:id="newMusics" prefHeight="167.0" prefWidth="810.0" spacing="10.0" style="-fx-background-color: #020202;" />
                </content></ScrollPane>
-            <Label prefHeight="32.0" prefWidth="857.0" style="-fx-background-color: #1DD563;" text="New Albums" textFill="WHITE">
+            <Label prefHeight="32.0" prefWidth="857.0" style="-fx-background-color: #1DD563;" text="New Albums" textFill="#202020">
                <font>
                   <Font name="System Italic" size="22.0" />
                </font>
@@ -33,9 +33,9 @@
             </Label>
             <ScrollPane blendMode="SRC_ATOP" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #020202;">
                <content>
-                  <HBox fx:id="newAlbums" prefHeight="170.0" prefWidth="1038.0" />
+                  <HBox fx:id="newAlbums" prefHeight="170.0" prefWidth="1038.0" style="-fx-background-color: #020202;" />
                </content></ScrollPane>
-            <Label prefHeight="32.0" prefWidth="860.0" style="-fx-background-color: #1DD563;" text="Recommanded Musics" textFill="WHITE">
+            <Label prefHeight="32.0" prefWidth="860.0" style="-fx-background-color: #1DD563;" text="Recommanded Musics" textFill="#202020">
                <font>
                   <Font name="System Italic" size="22.0" />
                </font>
@@ -45,7 +45,7 @@
             </Label>
             <ScrollPane prefHeight="203.0" prefWidth="864.0" style="-fx-background-color: #020202;">
                <content>
-                  <HBox fx:id="recom" prefHeight="157.0" prefWidth="839.0" />
+                  <HBox fx:id="recom" prefHeight="168.0" prefWidth="722.0" style="-fx-background-color: #020202;" />
                </content></ScrollPane>
          </children>
       </VBox>

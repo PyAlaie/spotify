@@ -13,8 +13,8 @@
             <Font size="36.0" />
          </font>
       </Label>
-      <VBox fx:id="albumMusics" layoutX="269.0" layoutY="166.0" prefHeight="331.0" prefWidth="711.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="166.0" />
-      <Button layoutX="297.0" layoutY="114.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="117.0" style="-fx-background-color: #1db954;" text="Play" textFill="WHITE">
+      <VBox fx:id="albumMusics" layoutX="269.0" layoutY="166.0" prefHeight="331.0" prefWidth="711.0" style="-fx-background-color: #202020;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="166.0" />
+      <Button layoutX="297.0" layoutY="114.0" mnemonicParsing="false" onAction="#play" prefHeight="34.0" prefWidth="117.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Play">
          <font>
             <Font size="17.0" />
          </font>

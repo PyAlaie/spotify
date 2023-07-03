@@ -47,11 +47,10 @@ public class ArtistProfileView implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         artist = StaticData.artistToView;
-        getGenreById(artist.getGenre());
+//        getGenreById(artist.getGenre());
 
         biographyTxt.setText(artist.getBiography());
         artistLbl.setText(artist.getUsername());
-        genreLbl.setText("Genre: " + genre.getTitle());
 
         Image image = new Image(Test.class.getResource("cloud/profile.png").toExternalForm());
         if(artist.getProfilePicPath() != null){
@@ -77,6 +76,9 @@ public class ArtistProfileView implements Initializable {
         Request request3 = new Request("getArtistMusics");
         request3.setJson(new Gson().toJson(artist.getId()));
 
+        Request request4 = new Request("getGenreById");
+        request4.setJson(new Gson().toJson(artist.getGenre()));
+
         try {
             StaticData.objOut.writeObject(request1);
             StaticData.objOut.flush();
@@ -100,6 +102,15 @@ public class ArtistProfileView implements Initializable {
             response = (Response) StaticData.objIn.readObject();
             Type type = new com.google.gson.reflect.TypeToken<List<Music>>(){}.getType();
             List<Music> musics = new Gson().fromJson(response.getJson(), type);
+
+            StaticData.objOut.writeObject(request4);
+            StaticData.objOut.flush();
+
+            response = (Response) StaticData.objIn.readObject();
+            genre = new Gson().fromJson(response.getJson(), Genre.class);
+            if(genre!= null){
+                genreLbl.setText("Genre: " + genre.getTitle());
+            }
 
             musicsVbox.getChildren().clear();
             for(int i = 0; i < musics.size(); i++){
@@ -130,20 +141,22 @@ public class ArtistProfileView implements Initializable {
     }
 
     private void getGenreById(int genreId) {
-        Request request = new Request("getGenreById");
-        request.setJson(new Gson().toJson(genreId));
 
-        try{
-            StaticData.objOut.writeObject(request);
-            StaticData.objOut.flush();
+            Request request = new Request("getGenreById");
+            request.setJson(new Gson().toJson(genreId));
 
-            Response response = (Response) StaticData.objIn.readObject();
-            System.out.println(response.getMessage());
+            try{
+                StaticData.objOut.writeObject(request);
+                StaticData.objOut.flush();
 
-            genre = new Gson().fromJson(response.getJson(), Genre.class);
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+                Response response = (Response) StaticData.objIn.readObject();
+                System.out.println(response.getMessage());
+
+                genre = new Gson().fromJson(response.getJson(), Genre.class);
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
     }
 
     public void followAndUnfollow(){

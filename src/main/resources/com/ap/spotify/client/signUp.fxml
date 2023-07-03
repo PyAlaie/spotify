@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minWidth="-Infinity" prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
+<AnchorPane minWidth="-Infinity" prefHeight="550.0" prefWidth="737.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.SignUp">
    <children>
       <PasswordField fx:id="passwordTxt" alignment="CENTER" layoutX="440.0" layoutY="242.0" prefHeight="45.0" prefWidth="299.0" promptText="Password" AnchorPane.leftAnchor="440.0" AnchorPane.rightAnchor="38.0">
          <font>
@@ -27,8 +27,11 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label fx:id="label" alignment="CENTER" layoutX="242.0" layoutY="328.0" prefHeight="21.0" prefWidth="299.0" textFill="WHITE" />
-      <RadioButton fx:id="userRB" layoutX="456.0" layoutY="322.0" mnemonicParsing="false" text="User" textFill="WHITE">
+      <Label fx:id="label" alignment="CENTER" layoutX="428.0" layoutY="385.0" prefHeight="21.0" prefWidth="200.0" textFill="#1dd563">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <RadioButton fx:id="userRB" layoutX="448.0" layoutY="312.0" mnemonicParsing="false" text="User" textFill="WHITE">
          <toggleGroup>
             <ToggleGroup fx:id="role" />
          </toggleGroup>
@@ -36,7 +39,7 @@
             <Font name="System Bold Italic" size="17.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="artistRB" layoutX="452.0" layoutY="359.0" mnemonicParsing="false" text="Artist" textFill="WHITE" toggleGroup="$role">
+      <RadioButton fx:id="artistRB" layoutX="444.0" layoutY="349.0" mnemonicParsing="false" text="Artist" textFill="WHITE" toggleGroup="$role">
          <font>
             <Font name="System Bold Italic" size="17.0" />
          </font></RadioButton>
@@ -70,7 +73,7 @@
             <Font size="54.0" />
          </font>
       </Label>
-      <Label layoutX="344.0" layoutY="332.0" text="I'm a..." textFill="WHITE">
+      <Label layoutX="336.0" layoutY="322.0" text="I'm a..." textFill="WHITE">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>

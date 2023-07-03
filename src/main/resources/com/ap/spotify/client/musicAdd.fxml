@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="492.0" prefWidth="737.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicAdd">
+<AnchorPane prefHeight="492.0" prefWidth="737.0" style="-fx-background-color: #020202;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.spotify.client.controllers.MusicAdd">
    <children>
       <TextField fx:id="titleTxt" alignment="CENTER" layoutX="14.0" layoutY="30.0" prefHeight="59.0" prefWidth="389.0" promptText="Title" style="-fx-background-color: #212121;" styleClass="text-Field" stylesheets="@styling.css">
          <font>
@@ -17,10 +17,10 @@
          </font>
       </TextField>
       <ComboBox fx:id="albumCombo" layoutX="14.0" layoutY="101.0" prefHeight="26.0" prefWidth="171.0" promptText="Album" styleClass="combo-box" stylesheets="@styling.css" />
-      <ComboBox fx:id="genreCombo" layoutX="194.0" layoutY="100.0" prefHeight="28.0" prefWidth="208.0" promptText="Genre" styleClass="content" stylesheets="@styling.css" />
+      <ComboBox fx:id="genreCombo" layoutX="194.0" layoutY="100.0" prefHeight="28.0" prefWidth="208.0" promptText="Genre" styleClass="combo-box" stylesheets="@styling.css" />
       <Button layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#uploadCoverPic" prefHeight="26.0" prefWidth="172.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Upload Cover Image" />
       <Button layoutX="194.0" layoutY="139.0" mnemonicParsing="false" onAction="#uploadMusic" prefHeight="26.0" prefWidth="209.0" style="-fx-background-color: #1DD563; -fx-background-radius: 20;" text="Upload Music" />
-      <Button layoutX="515.0" layoutY="353.0" mnemonicParsing="false" onAction="#save" prefHeight="112.0" prefWidth="207.0" style="-fx-background-color: #1DD563; -fx-background-radius: 30;" text="Save" textFill="WHITE">
+      <Button layoutX="515.0" layoutY="353.0" mnemonicParsing="false" onAction="#save" prefHeight="112.0" prefWidth="207.0" style="-fx-background-color: #1DD563; -fx-background-radius: 30;" text="Save">
          <font>
             <Font size="25.0" />
          </font>
